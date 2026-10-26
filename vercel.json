@@ -4,103 +4,103 @@
   "rewrites": [
     {
       "source": "/en/furi",
-      "destination": "/play.html"
+      "destination": "/play"
     },
     {
       "source": "/en/furi/claw",
-      "destination": "/play/claw.html"
+      "destination": "/play/claw"
     },
     {
       "source": "/en/furi/guess",
-      "destination": "/play/guess.html"
+      "destination": "/play/guess"
     },
     {
       "source": "/en/furi/match",
-      "destination": "/play/match.html"
+      "destination": "/play/match"
     },
     {
       "source": "/en/furi/memory",
-      "destination": "/play/memory.html"
+      "destination": "/play/memory"
     },
     {
       "source": "/zh-Hant/furi",
-      "destination": "/play.html"
+      "destination": "/play"
     },
     {
       "source": "/zh-Hant/furi/claw",
-      "destination": "/play/claw.html"
+      "destination": "/play/claw"
     },
     {
       "source": "/zh-Hant/furi/guess",
-      "destination": "/play/guess.html"
+      "destination": "/play/guess"
     },
     {
       "source": "/zh-Hant/furi/match",
-      "destination": "/play/match.html"
+      "destination": "/play/match"
     },
     {
       "source": "/zh-Hant/furi/memory",
-      "destination": "/play/memory.html"
+      "destination": "/play/memory"
     },
     {
       "source": "/zh-Hans/furi",
-      "destination": "/play.html"
+      "destination": "/play"
     },
     {
       "source": "/zh-Hans/furi/claw",
-      "destination": "/play/claw.html"
+      "destination": "/play/claw"
     },
     {
       "source": "/zh-Hans/furi/guess",
-      "destination": "/play/guess.html"
+      "destination": "/play/guess"
     },
     {
       "source": "/zh-Hans/furi/match",
-      "destination": "/play/match.html"
+      "destination": "/play/match"
     },
     {
       "source": "/zh-Hans/furi/memory",
-      "destination": "/play/memory.html"
+      "destination": "/play/memory"
     },
     {
       "source": "/ja/furi",
-      "destination": "/play.html"
+      "destination": "/play"
     },
     {
       "source": "/ja/furi/claw",
-      "destination": "/play/claw.html"
+      "destination": "/play/claw"
     },
     {
       "source": "/ja/furi/guess",
-      "destination": "/play/guess.html"
+      "destination": "/play/guess"
     },
     {
       "source": "/ja/furi/match",
-      "destination": "/play/match.html"
+      "destination": "/play/match"
     },
     {
       "source": "/ja/furi/memory",
-      "destination": "/play/memory.html"
+      "destination": "/play/memory"
     },
     {
       "source": "/th/furi",
-      "destination": "/play.html"
+      "destination": "/play"
     },
     {
       "source": "/th/furi/claw",
-      "destination": "/play/claw.html"
+      "destination": "/play/claw"
     },
     {
       "source": "/th/furi/guess",
-      "destination": "/play/guess.html"
+      "destination": "/play/guess"
     },
     {
       "source": "/th/furi/match",
-      "destination": "/play/match.html"
+      "destination": "/play/match"
     },
     {
       "source": "/th/furi/memory",
-      "destination": "/play/memory.html"
+      "destination": "/play/memory"
     }
   ]
 }

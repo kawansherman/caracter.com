@@ -18,13 +18,13 @@
   function track(n, p) { if (FM.analytics) FM.analytics.track(n, p); }
 
   /* ---------- locale ---------- */
-  /* Map site locale → commercialisation.ai /{lang}/furi… paths.
-   * Thai /th/furi currently 308s into a broken path, so fall back to en. */
-  var FURI_LANG = { en: 'en', 'zh-Hant': 'zh-Hant', 'zh-Hans': 'zh-Hans', ja: 'ja', th: 'en' };
+  /* Map site locale → same-origin /{lang}/furi… paths on catracter.com.
+   * Thai keeps /th/furi (rewritten locally); no external commercialisation.ai host. */
+  var FURI_LANG = { en: 'en', 'zh-Hant': 'zh-Hant', 'zh-Hans': 'zh-Hans', ja: 'ja', th: 'th' };
   function furiUrl(path, loc) {
     var lang = FURI_LANG[loc] || 'en';
     var rest = String(path || 'furi').replace(/^\/+/, '');
-    return 'https://commercialisation.ai/' + lang + '/' + rest;
+    return '/' + lang + '/' + rest;
   }
   function applyFuriLinks(loc) {
     $$('[data-furi-path]').forEach(function (el) {

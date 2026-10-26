@@ -1,4 +1,11 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/:lang(en|zh-Hant|zh-Hans|ja|th)/furi", "destination": "/play.html" },
+    { "source": "/:lang(en|zh-Hant|zh-Hans|ja|th)/furi/claw", "destination": "/play/claw.html" },
+    { "source": "/:lang(en|zh-Hant|zh-Hans|ja|th)/furi/guess", "destination": "/play/guess.html" },
+    { "source": "/:lang(en|zh-Hant|zh-Hans|ja|th)/furi/match", "destination": "/play/match.html" },
+    { "source": "/:lang(en|zh-Hant|zh-Hans|ja|th)/furi/memory", "destination": "/play/memory.html" }
+  ]
 }

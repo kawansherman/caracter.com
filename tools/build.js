@@ -594,11 +594,13 @@ function build() {
 
   /* flat pages */
   pageFiles(PAGES_DIR).forEach(full => {
-    const raw = fs.readFileSync(full, 'utf8');
-    const m = raw.match(/<!--FM([\s\S]*?)-->/);
+    /* Strip UTF-8 BOM — otherwise match.index is 1 and slice(m[0].length)
+     * leaves the closing '>' of '-->' as a literal character before <main>. */
+    const raw = fs.readFileSync(full, 'utf8').replace(/^\uFEFF/, '');
+    const m = /<!--FM([\s\S]*?)-->/.exec(raw);
     if (!m) throw new Error('no FM front-matter in ' + path.relative(PAGES_DIR, full));
     const meta = JSON.parse(m[1]);
-    const body = raw.slice(m[0].length);
+    const body = raw.slice(m.index + m[0].length);
     PAGE = meta.file || path.relative(PAGES_DIR, full).replace(/\\/g, '/');
     const root = meta.root || '';
     written.push({ file: meta.file || PAGE, html: shell(meta, fill(body, root)) });
@@ -629,11 +631,13 @@ ${pages.map(w => {
   }).join('\n')}
 </urlset>
 `;
-  /* Optional local FURI demos under /play — only sitemap entries that exist. */
-  const playExtras = ['play/claw-machine/', 'play/claw.html', 'play/guess.html', 'play/match.html', 'play/memory.html']
-    .filter((file) => fs.existsSync(path.join(SITE, file.replace(/\/$/, '') + (file.endsWith('/') ? '/index.html' : '')) ) || fs.existsSync(path.join(SITE, file)));
+  /* Local FURI demos: pretty /en/furi* paths (rewritten) plus /play fallbacks. */
+  const playExtras = [
+    'en/furi', 'en/furi/claw', 'en/furi/guess', 'en/furi/match', 'en/furi/memory',
+    'play/claw-machine/', 'play/claw.html', 'play/guess.html', 'play/match.html', 'play/memory.html'
+  ];
   let sitemapFinal = sitemap;
-  if (playExtras.length) {
+  {
     const playXml = playExtras.map((file) => `  <url>
     <loc>${CFG.url}/${file}</loc>
     <lastmod>${builtOn}</lastmod>

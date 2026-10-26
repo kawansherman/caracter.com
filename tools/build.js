@@ -638,7 +638,7 @@ ${pages.map(w => `- [${w.file.replace('.html', '')}](${CFG.url}/${w.file === 'in
     const navKey = (f) => {
       const exact = {
         'about.html': 'nav.about', 'trust.html': 'nav.trust', 'contact.html': 'nav.contact',
-        'how-it-works.html': 'nav.how', 'why-caracter.html': 'nav.why'
+        'how-it-works.html': 'nav.how', 'why-caracter.html': 'nav.why', 'play.html': 'nav.play'
       };
       if (exact[f]) return exact[f];
       if (f.indexOf('explore/') === 0) return 'nav.explore';

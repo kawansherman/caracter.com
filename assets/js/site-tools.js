@@ -54,6 +54,21 @@
       'zh-Hans': '会加载 Google Translate，并把本页文字发送给 Google。上方五种语言是内置，无需第三方。',
       th: 'จะโหลด Google Translate และส่งข้อความหน้านี้ไปยัง Google ภาษาทั้งห้าด้านบนมีในเว็บแล้ว ไม่ต้องใช้บุคคลที่สาม',
       ja: 'Google Translateを読み込み、このページの本文をGoogleへ送信します。上部の5言語は内蔵で、第三者を必要としません。'
+    },
+
+    waLabel: { en: 'WhatsApp', 'zh-Hant': 'WhatsApp', 'zh-Hans': 'WhatsApp', th: 'WhatsApp', ja: 'WhatsApp' },
+    waEnquire: { en: 'Chat on WhatsApp', 'zh-Hant': 'WhatsApp 查詢', 'zh-Hans': 'WhatsApp 查询', th: 'คุยทาง WhatsApp', ja: 'WhatsAppで問い合わせ' },
+    wxLabel: { en: 'WeChat', 'zh-Hant': '微信查詢', 'zh-Hans': '微信查询', th: 'WeChat', ja: 'WeChat' },
+    wxModalTitle: { en: 'Add on WeChat', 'zh-Hant': '掃碼加微信', 'zh-Hans': '扫码加微信', th: 'เพิ่มใน WeChat', ja: 'WeChatで追加' },
+    wxIdLabel: { en: 'WeChat ID', 'zh-Hant': '微信號', 'zh-Hans': '微信号', th: 'WeChat ID', ja: 'WeChat ID' },
+    wxCopy: { en: 'Copy WeChat ID', 'zh-Hant': '複製微信號', 'zh-Hans': '复制微信号', th: 'คัดลอก WeChat ID', ja: 'WeChat IDをコピー' },
+    wxCopied: { en: 'Copied', 'zh-Hant': '已複製', 'zh-Hans': '已复制', th: 'คัดลอกแล้ว', ja: 'コピーしました' },
+    wxHint: {
+      en: 'Scan the QR code with WeChat, or copy the ID and search to add.',
+      'zh-Hant': '用微信掃二維碼，或複製微信號搜尋添加。',
+      'zh-Hans': '用微信扫二维码，或复制微信号搜索添加。',
+      th: 'สแกน QR ด้วย WeChat หรือคัดลอก ID แล้วค้นหาเพื่อเพิ่ม',
+      ja: 'WeChatでQRをスキャンするか、IDをコピーして検索し追加してください。'
     }
   };
   function t(k) { var r = L[k]; return (r && (r[LOC] || r.en)) || k; }
@@ -356,6 +371,118 @@
     });
   }
 
+
+  /* ---------- WhatsApp + WeChat float (commercialisation.ai pattern) ---- */
+  function buildContactDock() {
+    var cfg = (window.FM && FM.config && FM.config.contact) || {};
+    var wa = cfg.whatsapp;
+    var wxId = cfg.wechatId;
+    if (!wa && !wxId) return;
+
+    var rootAttr = document.documentElement.getAttribute('data-root') || '';
+    var qrRel = cfg.wechatQr || 'assets/img/wechat/qr-ganglou.png';
+    var qr = rootAttr + qrRel;
+    var wxName = '';
+    if (cfg.wechatName) {
+      wxName = (typeof cfg.wechatName === 'string')
+        ? cfg.wechatName
+        : (cfg.wechatName[LOC] || cfg.wechatName.en || '');
+    }
+    var prefill = '';
+    if (cfg.whatsappPrefill) {
+      prefill = (typeof cfg.whatsappPrefill === 'string')
+        ? cfg.whatsappPrefill
+        : (cfg.whatsappPrefill[LOC] || cfg.whatsappPrefill.en || '');
+    }
+    var waHref = wa
+      ? ('https://wa.me/' + String(wa).replace(/\D/g, '') +
+         (prefill ? ('?text=' + encodeURIComponent(prefill)) : ''))
+      : '';
+    var waDisplay = cfg.whatsappDisplay || wa || '';
+
+    var ICON_WA = '<svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">' +
+      '<path fill="currentColor" d="M20.5 3.5A11 11 0 0 0 2.1 17.2L1 23l6-1.6A11 11 0 0 0 20.5 3.5Zm-8.5 17a9.1 9.1 0 0 1-4.6-1.3l-.3-.2-3.6.9.9-3.5-.2-.3A9.1 9.1 0 1 1 12 20.5Zm5-6.8c-.3-.1-1.6-.8-1.8-.9s-.4-.1-.6.1-.7.9-.8 1-.3.2-.6.1a7.4 7.4 0 0 1-2.2-1.4 8.2 8.2 0 0 1-1.5-1.9c-.2-.3 0-.4.1-.6l.4-.5.2-.3a.5.5 0 0 0 0-.5c0-.1-.6-1.4-.8-1.9s-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 12 12 0 0 0 4.5 4 15 15 0 0 0 1.5.6 3.6 3.6 0 0 0 1.7.1 2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.6-.3Z"/></svg>';
+    var ICON_WX = '<svg viewBox="0 0 24 24" aria-hidden="true" width="18" height="18">' +
+      '<path fill="currentColor" d="M9.5 4C5.9 4 3 6.5 3 9.6c0 1.8 1 3.4 2.6 4.5l-.6 2.2 2.4-1.3c.7.2 1.4.3 2.1.3.2 0 .4 0 .6-.1-.1-.4-.2-.8-.2-1.2 0-2.9 2.7-5.3 6-5.3.3 0 .6 0 .9.1C15.9 6.1 13 4 9.5 4Zm-2.4 4.1a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8Zm4.1 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8ZM16.4 9.8c-2.9 0-5.3 2-5.3 4.6 0 1.5.9 2.9 2.3 3.8l-.5 1.8 2-.9c.5.1 1 .2 1.5.2 2.9 0 5.3-2 5.3-4.5s-2.4-5-5.3-5Zm-1.7 3.4a.7.7 0 1 1 0 1.4.7.7 0 0 1 0-1.4Zm3.4 0a.7.7 0 1 1 0 1.4.7.7 0 0 1 0-1.4Z"/></svg>';
+
+    var dock = document.createElement('div');
+    dock.className = 'ca-float-dock';
+    dock.setAttribute('role', 'complementary');
+    dock.setAttribute('aria-label', t('waEnquire') + ' / ' + t('wxLabel'));
+
+    var html = '';
+    if (wxId) {
+      html += '<button type="button" class="ca-float-btn ca-float-btn--wechat" data-ca-wechat ' +
+        'aria-haspopup="dialog" aria-expanded="false" aria-label="' + esc(t('wxLabel')) + '">' +
+        ICON_WX + '<span class="ca-float-label">' + esc(t('wxLabel')) + '</span></button>';
+    }
+    if (waHref) {
+      html += '<a class="ca-float-btn ca-float-btn--wa" href="' + esc(waHref) +
+        '" target="_blank" rel="noopener noreferrer" aria-label="' +
+        esc(t('waLabel') + ' ' + waDisplay) + '">' + ICON_WA +
+        '<span class="ca-float-label">' + esc(t('waLabel')) +
+        ' <span class="ca-float-num">' + esc(waDisplay) + '</span></span></a>';
+    }
+    dock.innerHTML = html;
+    document.body.appendChild(dock);
+
+    if (!wxId) return;
+
+    var modal = document.createElement('div');
+    modal.className = 'ca-wechat-modal';
+    modal.hidden = true;
+    modal.innerHTML =
+      '<div class="ca-wechat-card" role="dialog" aria-modal="true" aria-label="' + esc(t('wxModalTitle')) + '">' +
+        '<div class="ca-wechat-head">' +
+          '<strong>' + esc(t('wxModalTitle')) + '</strong>' +
+          '<button type="button" class="st-icon" data-ca-wx-close aria-label="' + esc(t('close')) + '">' + CSS_ICON_CLOSE + '</button>' +
+        '</div>' +
+        '<p class="ca-wechat-hint">' + esc(t('wxHint')) + '</p>' +
+        (wxName ? ('<p class="ca-wechat-name">' + esc(wxName) + '</p>') : '') +
+        '<figure class="ca-wechat-fig">' +
+          '<div class="ca-wechat-qr"><img src="' + esc(qr) + '" alt="' +
+            esc((wxName || 'WeChat') + ' QR — ' + wxId) + '" width="220" height="282" decoding="async"></div>' +
+          '<figcaption>' +
+            '<p class="ca-wechat-idk">' + esc(t('wxIdLabel')) + '</p>' +
+            '<p class="ca-wechat-id mono">' + esc(wxId) + '</p>' +
+            '<button type="button" class="btn btn--sm ca-wechat-copy" data-ca-wx-copy>' + esc(t('wxCopy')) + '</button>' +
+          '</figcaption>' +
+        '</figure>' +
+      '</div>';
+    document.body.appendChild(modal);
+
+    var openBtn = dock.querySelector('[data-ca-wechat]');
+    var copyBtn = modal.querySelector('[data-ca-wx-copy]');
+
+    function setOpen(on) {
+      modal.hidden = !on;
+      if (openBtn) openBtn.setAttribute('aria-expanded', String(on));
+      document.documentElement.classList.toggle('ca-wechat-open', on);
+    }
+    if (openBtn) openBtn.addEventListener('click', function () { setOpen(modal.hidden); });
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal || e.target.closest('[data-ca-wx-close]')) setOpen(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !modal.hidden) setOpen(false);
+    });
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function () {
+        var done = function () {
+          copyBtn.textContent = t('wxCopied');
+          setTimeout(function () { copyBtn.textContent = t('wxCopy'); }, 1600);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(wxId).then(done).catch(function () {
+            window.prompt(t('wxIdLabel'), wxId);
+          });
+        } else {
+          window.prompt(t('wxIdLabel'), wxId);
+        }
+      });
+    }
+  }
+
   /* ---------- mount ------------------------------------------------------ */
   function mount() {
     var search = buildSearch();
@@ -370,6 +497,7 @@
       tools.insertBefore(b, tools.firstChild);
     }
     buildChat();
+    buildContactDock();
     initTranslate();
   }
 

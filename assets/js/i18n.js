@@ -19,7 +19,7 @@
   var DICT = {
     en: {
       'nav.explore': 'Explore IP', 'nav.studio': 'AI Studio', 'nav.solutions': 'Solutions',
-      'nav.supply': 'Supply Chain', 'nav.how': 'How it works', 'nav.cases': 'Cases',
+      'nav.supply': 'Supply Chain', 'nav.how': 'How it works', 'nav.cases': 'Cases', 'nav.play': 'Play',
       'nav.partner': 'Partner with us', 'nav.about': 'About', 'nav.trust': 'Trust', 'nav.contact': 'Contact',
     'nav.why': 'Why CARACTER',
       'nav.portal': 'Sign in', 'nav.more': 'More', 'nav.menu': 'Menu', 'nav.close': 'Close',
@@ -59,7 +59,7 @@
     },
     'zh-Hant': {
       'nav.explore': '探索 IP', 'nav.studio': 'AI 製作室', 'nav.solutions': '解決方案',
-      'nav.supply': '供應鏈', 'nav.how': '合作流程', 'nav.cases': '案例',
+      'nav.supply': '供應鏈', 'nav.how': '合作流程', 'nav.cases': '案例', 'nav.play': '遊戲',
       'nav.partner': '與我們合作', 'nav.about': '關於', 'nav.trust': '信任與治理', 'nav.contact': '聯絡',
     'nav.why': '為何是 CARACTER',
       'nav.portal': '登入', 'nav.more': '更多', 'nav.menu': '選單', 'nav.close': '關閉',
@@ -99,7 +99,7 @@
     },
     'zh-Hans': {
       'nav.explore': '探索 IP', 'nav.studio': 'AI 制作室', 'nav.solutions': '解决方案',
-      'nav.supply': '供应链', 'nav.how': '合作流程', 'nav.cases': '案例',
+      'nav.supply': '供应链', 'nav.how': '合作流程', 'nav.cases': '案例', 'nav.play': '游戏',
       'nav.partner': '与我们合作', 'nav.about': '关于', 'nav.trust': '信任与治理', 'nav.contact': '联系',
     'nav.why': '为何是 CARACTER',
       'nav.portal': '登录', 'nav.more': '更多', 'nav.menu': '菜单', 'nav.close': '关闭',
@@ -139,7 +139,7 @@
     },
     th: {
       'nav.explore': 'สำรวจ IP', 'nav.studio': 'สตูดิโอ AI', 'nav.solutions': 'โซลูชัน',
-      'nav.supply': 'ซัพพลายเชน', 'nav.how': 'ขั้นตอนการทำงาน', 'nav.cases': 'กรณีศึกษา',
+      'nav.supply': 'ซัพพลายเชน', 'nav.how': 'ขั้นตอนการทำงาน', 'nav.cases': 'กรณีศึกษา', 'nav.play': 'เล่น',
       'nav.partner': 'ร่วมงานกับเรา', 'nav.about': 'เกี่ยวกับ', 'nav.trust': 'ความไว้วางใจ', 'nav.contact': 'ติดต่อ',
     'nav.why': 'ทำไมต้อง CARACTER',
       'nav.portal': 'เข้าสู่ระบบ', 'nav.more': 'เพิ่มเติม', 'nav.menu': 'เมนู', 'nav.close': 'ปิด',
@@ -179,7 +179,7 @@
     },
     ja: {
       'nav.explore': 'IPを探す', 'nav.studio': 'AIスタジオ', 'nav.solutions': 'ソリューション',
-      'nav.supply': 'サプライチェーン', 'nav.how': '進め方', 'nav.cases': '事例',
+      'nav.supply': 'サプライチェーン', 'nav.how': '進め方', 'nav.cases': '事例', 'nav.play': 'プレイ',
       'nav.partner': 'パートナーになる', 'nav.about': '会社情報', 'nav.trust': '信頼と統治', 'nav.contact': 'お問い合わせ',
     'nav.why': 'CARACTERが選ばれる理由',
       'nav.portal': 'ログイン', 'nav.more': 'その他', 'nav.menu': 'メニュー', 'nav.close': '閉じる',

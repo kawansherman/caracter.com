@@ -25,7 +25,8 @@
     { page: 'solutions', href: 'solutions/index.html', key: 'nav.solutions' },
     { page: 'supply', href: 'supply-chain/index.html', key: 'nav.supply' },
     { page: 'how', href: 'how-it-works.html', key: 'nav.how' },
-    { page: 'cases', href: 'cases/index.html', key: 'nav.cases' }
+    { page: 'cases', href: 'cases/index.html', key: 'nav.cases' },
+    { page: 'play', href: 'play.html', key: 'nav.play' }
   ];
   var UTIL = [
     { page: 'why', href: 'why-caracter.html', key: 'nav.why' },

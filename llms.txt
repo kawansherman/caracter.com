@@ -31,6 +31,7 @@ A B2B platform that turns licensed characters into content, campaigns and produc
 - [partner/index](https://caracter.com/partner/index.html)
 - [partner/submit-ip](https://caracter.com/partner/submit-ip.html)
 - [partner/suppliers](https://caracter.com/partner/suppliers.html)
+- [play](https://caracter.com/play.html)
 - [solutions/index](https://caracter.com/solutions/index.html)
 - [studio/index](https://caracter.com/studio/index.html)
 - [supply-chain/index](https://caracter.com/supply-chain/index.html)

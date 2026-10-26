@@ -50,7 +50,26 @@
       licensing: 'licensing@caracter.com',
       partners: 'partners@caracter.com',
       suppliers: 'suppliers@caracter.com',
-      press: 'press@caracter.com'
+      press: 'press@caracter.com',
+      /* Chat channels — same desk as commercialisation.ai / 港樓金融財商. */
+      whatsapp: '85297398018',
+      whatsappDisplay: '9739 8018',
+      wechatId: 'RWAtokenization',
+      wechatName: {
+        en: 'Ganglou Finance',
+        'zh-Hant': '港樓金融財商',
+        'zh-Hans': '港楼金融财商',
+        th: 'Ganglou Finance',
+        ja: '港樓金融財商'
+      },
+      wechatQr: 'assets/img/wechat/qr-ganglou.png',
+      whatsappPrefill: {
+        en: 'Hi, I would like to enquire about CARACTER (caracter.com / catracter.com).',
+        'zh-Hant': '你好，想查詢 CARACTER（caracter.com／catracter.com）。',
+        'zh-Hans': '你好，想查询 CARACTER（caracter.com／catracter.com）。',
+        th: 'สวัสดี ต้องการสอบถามเกี่ยวกับ CARACTER (caracter.com / catracter.com)',
+        ja: 'こんにちは。CARACTER（caracter.com / catracter.com）について問い合わせたいです。'
+      }
     },
 
     forms: {

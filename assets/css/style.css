@@ -709,7 +709,7 @@ html.is-locked .st-chat { display: none !important; visibility: hidden; }
     transition-duration: .001ms !important;
   }
   .reveal { opacity: 1; transform: none; }
-  .btn:hover, .gcard:hover, .ccard:hover, .ipcard:hover, .scard:hover { transform: none; }
+  .btn:hover, .gcard:hover, .ccard:hover, .ipcard:hover, .scard:hover, .portal:hover, .btn--accent:hover { transform: none; }
 }
 @media print {
   .site-header, .site-footer, .drawer, .btn, .lang { display: none !important; }
@@ -1182,12 +1182,17 @@ html.ca-wechat-open { overflow: hidden; }
   border-radius: var(--radius-lg);
   background: var(--surface);
   box-shadow: var(--shadow-card);
-  transition: transform .25s var(--ease), border-color .25s var(--ease), box-shadow .25s var(--ease);
+  transition: transform .28s var(--ease), border-color .28s var(--ease), box-shadow .28s var(--ease);
 }
 .portal:hover {
-  transform: translateY(-3px);
-  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
-  box-shadow: 0 16px 36px rgba(15, 18, 28, .08);
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  box-shadow: 0 18px 40px rgba(15, 18, 28, .10);
+}
+.portal:hover .portal-go { color: var(--accent); transform: translateX(3px); }
+.portal:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 70%, transparent);
+  outline-offset: 3px;
 }
 .portal-k {
   font-family: var(--font-mono);
@@ -1210,6 +1215,8 @@ html.ca-wechat-open { overflow: hidden; }
   letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--ink-900);
+  transition: color .25s var(--ease), transform .25s var(--ease);
+  display: inline-block;
 }
 
 @media (min-width: 900px) {
@@ -1233,6 +1240,104 @@ html.ca-wechat-open { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   .portal:hover { transform: none; }
+  .portal:hover .portal-go { transform: none; }
+}
+
+/* ---------- Motion polish (lightweight, B2B) --------------------------- */
+/* Entrance uses fill-mode: backwards so hover transforms work after play. */
+@keyframes ca-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes ca-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes ca-glow-breathe {
+  0%, 100% { opacity: .55; }
+  50%      { opacity: .85; }
+}
+
+.hero--world .hero-copy {
+  animation: ca-fade-up .65s var(--ease) both;
+}
+.hero--world .hero-stage {
+  animation: ca-fade-in .8s var(--ease) .1s both;
+}
+.hero-stage .glow {
+  animation: ca-glow-breathe 5.5s ease-in-out infinite;
+}
+
+.portal {
+  animation: ca-fade-up .55s var(--ease) backwards;
+}
+.portal:nth-child(1) { animation-delay: .06s; }
+.portal:nth-child(2) { animation-delay: .14s; }
+.portal:nth-child(3) { animation-delay: .22s; }
+.portal:nth-child(4) { animation-delay: .3s; }
+
+/* Soft float only on static stickers (not the hero video). Keeps rotate. */
+@keyframes ca-float-a {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+@keyframes ca-float-b {
+  0%, 100% { transform: rotate(-6deg) translateY(0); }
+  50%      { transform: rotate(-6deg) translateY(-4px); }
+}
+@keyframes ca-float-c {
+  0%, 100% { transform: rotate(5deg) translateY(0); }
+  50%      { transform: rotate(5deg) translateY(-5px); }
+}
+@keyframes ca-float-d {
+  0%, 100% { transform: rotate(-4deg) translateY(0); }
+  50%      { transform: rotate(-4deg) translateY(-4px); }
+}
+@keyframes ca-float-e {
+  0%, 100% { transform: rotate(8deg) translateY(0); }
+  50%      { transform: rotate(8deg) translateY(-4px); }
+}
+@keyframes ca-float-f {
+  0%, 100% { transform: rotate(3deg) translateY(0); }
+  50%      { transform: rotate(3deg) translateY(-3px); }
+}
+.sticker--prince { animation: ca-float-a 6s ease-in-out infinite; }
+.sticker--pinki  { animation: ca-float-b 6.8s ease-in-out .4s infinite; }
+.sticker--boxo   { animation: ca-float-c 7.2s ease-in-out .8s infinite; }
+.sticker--winggo { animation: ca-float-d 7.6s ease-in-out .2s infinite; }
+.sticker--fluffu { animation: ca-float-e 6.4s ease-in-out .6s infinite; }
+.sticker--bubi   { animation: ca-float-f 7s ease-in-out 1s infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero--world .hero-copy,
+  .hero--world .hero-stage,
+  .hero-stage .glow,
+  .portal,
+  .sticker--prince,
+  .sticker--pinki,
+  .sticker--boxo,
+  .sticker--winggo,
+  .sticker--fluffu,
+  .sticker--bubi {
+    animation: none !important;
+  }
+  .portal { opacity: 1; transform: none; }
+  .hero--world .hero-copy,
+  .hero--world .hero-stage { opacity: 1; transform: none; }
+  .portal:hover .portal-go { transform: none; color: var(--ink-900); }
+}
+
+/* Phones: keep entrance; drop continuous float to avoid jank */
+@media (max-width: 619px) {
+  .sticker--prince,
+  .sticker--pinki,
+  .sticker--boxo,
+  .sticker--winggo,
+  .sticker--fluffu,
+  .sticker--bubi,
+  .hero-stage .glow {
+    animation: none;
+  }
 }
 
 

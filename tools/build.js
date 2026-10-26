@@ -629,7 +629,21 @@ ${pages.map(w => {
   }).join('\n')}
 </urlset>
 `;
-  written.push({ file: 'sitemap.xml', text: sitemap });
+  /* Optional local FURI demos under /play — only sitemap entries that exist. */
+  const playExtras = ['play/claw-machine/', 'play/claw.html', 'play/guess.html', 'play/match.html', 'play/memory.html']
+    .filter((file) => fs.existsSync(path.join(SITE, file.replace(/\/$/, '') + (file.endsWith('/') ? '/index.html' : '')) ) || fs.existsSync(path.join(SITE, file)));
+  let sitemapFinal = sitemap;
+  if (playExtras.length) {
+    const playXml = playExtras.map((file) => `  <url>
+    <loc>${CFG.url}/${file}</loc>
+    <lastmod>${builtOn}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>`).join('\n');
+    sitemapFinal = sitemap.replace('</urlset>', playXml + '\n</urlset>');
+  }
+  written.push({ file: 'sitemap.xml', text: sitemapFinal });
+
 
   const robots = `# CARACTER — ${CFG.domain}
 User-agent: *

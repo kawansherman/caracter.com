@@ -18,6 +18,24 @@
   function track(n, p) { if (FM.analytics) FM.analytics.track(n, p); }
 
   /* ---------- locale ---------- */
+  /* Map site locale → commercialisation.ai /{lang}/furi… paths.
+   * Thai /th/furi currently 308s into a broken path, so fall back to en. */
+  var FURI_LANG = { en: 'en', 'zh-Hant': 'zh-Hant', 'zh-Hans': 'zh-Hans', ja: 'ja', th: 'en' };
+  function furiUrl(path, loc) {
+    var lang = FURI_LANG[loc] || 'en';
+    var rest = String(path || 'furi').replace(/^\/+/, '');
+    return 'https://commercialisation.ai/' + lang + '/' + rest;
+  }
+  function applyFuriLinks(loc) {
+    $$('[data-furi-path]').forEach(function (el) {
+      var url = furiUrl(el.getAttribute('data-furi-path'), loc);
+      if (el.tagName === 'IFRAME') {
+        if (el.getAttribute('src') !== url) el.setAttribute('src', url);
+      } else if (el.tagName === 'A') {
+        el.setAttribute('href', url);
+      }
+    });
+  }
   function applyLocale(loc) {
     I.setLocale(loc);
     doc.documentElement.setAttribute('data-locale', loc);
@@ -25,6 +43,7 @@
     $$('.lang button').forEach(function (b) {
       b.setAttribute('aria-pressed', String(b.getAttribute('data-locale') === loc));
     });
+    applyFuriLinks(loc);
     /* the header and footer are runtime-generated from these strings */
     if (FM.chrome && FM.chrome.mount) FM.chrome.mount();
   }

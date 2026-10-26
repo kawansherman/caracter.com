@@ -47,13 +47,13 @@
       ja: 'その質問への定型回答はありません。近いページはこちらです：'
     },
 
-    translate: { en: 'Other languages', 'zh-Hant': '其他語言', 'zh-Hans': '其他语言', th: 'ภาษาอื่น', ja: 'その他の言語' },
+    translate: { en: 'Translate', 'zh-Hant': '翻譯', 'zh-Hans': '翻译', th: 'แปล', ja: '翻訳' },
     translateNote: {
-      en: 'Loads Google Translate, which sends this page text to Google. The five languages above are built in and need no third party.',
-      'zh-Hant': '會載入 Google Translate，並把本頁文字傳送給 Google。上方五種語言是內建，不需第三方。',
-      'zh-Hans': '会加载 Google Translate，并把本页文字发送给 Google。上方五种语言是内置，无需第三方。',
-      th: 'จะโหลด Google Translate และส่งข้อความหน้านี้ไปยัง Google ภาษาทั้งห้าด้านบนมีในเว็บแล้ว ไม่ต้องใช้บุคคลที่สาม',
-      ja: 'Google Translateを読み込み、このページの本文をGoogleへ送信します。上部の5言語は内蔵で、第三者を必要としません。'
+      en: 'Loads Google Translate and sends this page text to Google. EN / 繁中 / 简中 / ไทย / 日本語 above are built in and need no third party.',
+      'zh-Hant': '會載入 Google Translate，並把本頁文字傳送給 Google。上方 EN／繁中／简中／ไทย／日本語 是內建，不需第三方。',
+      'zh-Hans': '会加载 Google Translate，并把本页文字发送给 Google。上方 EN／繁中／简中／ไทย／日本語 是内置，无需第三方。',
+      th: 'จะโหลด Google Translate และส่งข้อความหน้านี้ไปยัง Google ภาษา EN / 繁中 / 简中 / ไทย / 日本語 ด้านบนมีในเว็บแล้ว',
+      ja: 'Google Translateを読み込み、このページの本文をGoogleへ送信します。上部のEN／繁中／简中／ไทย／日本語は内蔵です。'
     },
 
     waLabel: { en: 'WhatsApp', 'zh-Hant': 'WhatsApp', 'zh-Hans': 'WhatsApp', th: 'WhatsApp', ja: 'WhatsApp' },
@@ -340,35 +340,127 @@
 
   /* ---------- on-demand Google Translate -------------------------------- */
   var GT_CODES = { en: 'en', 'zh-Hant': 'zh-TW', 'zh-Hans': 'zh-CN', th: 'th', ja: 'ja' };
+  var GT_INCLUDED = 'en,zh-TW,zh-CN,th,ja,ko,vi,id,ms,fr,de,es,pt,ar,hi,ru,it';
+
+  function currentPageLang() {
+    var loc = document.documentElement.getAttribute('data-locale') || LOC || 'en';
+    return GT_CODES[loc] || 'en';
+  }
+
+  function makeTranslateTrigger(extraClass) {
+    var box = document.createElement('div');
+    box.className = 'st-translate' + (extraClass ? (' ' + extraClass) : '');
+    box.innerHTML =
+      '<button class="st-trans-btn" type="button" aria-expanded="false" aria-controls="st-gt-panel" title="Google Translate">' +
+        '<span class="st-trans-ico" aria-hidden="true">' +
+          '<svg viewBox="0 0 24 24" width="14" height="14" focusable="false">' +
+            '<path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 9h-3.1a15 15 0 0 0-1.2-5 8.1 8.1 0 0 1 4.3 5zM12 4c.9 0 2.2 2.1 2.8 7H9.2C9.8 6.1 11.1 4 12 4zM5.1 11a8.1 8.1 0 0 1 4.3-5 15 15 0 0 0-1.2 5H5.1zM5.1 13h3.1a15 15 0 0 0 1.2 5 8.1 8.1 0 0 1-4.3-5zM12 20c-.9 0-2.2-2.1-2.8-7h5.6c-.6 4.9-1.9 7-2.8 7zm3.5-2a15 15 0 0 0 1.2-5h3.1a8.1 8.1 0 0 1-4.3 5z"/>' +
+          '</svg>' +
+        '</span>' +
+        '<span class="st-trans-label">' + esc(t('translate')) + '</span>' +
+      '</button>';
+    return box;
+  }
+
+  function ensureTranslatePanel() {
+    var panel = document.getElementById('st-gt-panel');
+    if (panel) return panel;
+    panel = document.createElement('div');
+    panel.id = 'st-gt-panel';
+    panel.className = 'st-gt-panel';
+    panel.hidden = true;
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-label', t('translate'));
+    panel.innerHTML =
+      '<div class="st-gt-card">' +
+        '<div class="st-gt-head">' +
+          '<strong>Google Translate</strong>' +
+          '<button type="button" class="st-icon" data-gt-close aria-label="' + esc(t('close')) + '">' +
+            CSS_ICON_CLOSE +
+          '</button>' +
+        '</div>' +
+        '<p class="tiny muted st-gt-note">' + esc(t('translateNote')) + '</p>' +
+        '<div id="google_translate_element"></div>' +
+      '</div>';
+    document.body.appendChild(panel);
+
+    function closePanel() {
+      panel.hidden = true;
+      document.querySelectorAll('.st-trans-btn').forEach(function (b) {
+        b.setAttribute('aria-expanded', 'false');
+      });
+    }
+    panel.addEventListener('click', function (e) {
+      if (e.target === panel || e.target.closest('[data-gt-close]')) closePanel();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !panel.hidden) closePanel();
+    });
+    return panel;
+  }
+
+  function loadGoogleTranslate() {
+    if (window.__gtLoaded) return;
+    window.__gtLoaded = true;
+    window.__gtInit = function () {
+      /* eslint-disable no-undef */
+      new google.translate.TranslateElement({
+        pageLanguage: currentPageLang(),
+        includedLanguages: GT_INCLUDED,
+        layout: google.translate.TranslateElement.InlineLayout.VERTICAL,
+        autoDisplay: false
+      }, 'google_translate_element');
+    };
+    var s = document.createElement('script');
+    s.src = 'https://translate.google.com/translate_a/element.js?cb=__gtInit';
+    s.async = true;
+    document.body.appendChild(s);
+  }
+
+  function wireTranslateButton(btn) {
+    btn.addEventListener('click', function () {
+      var panel = ensureTranslatePanel();
+      var open = panel.hidden;
+      panel.hidden = !open;
+      document.querySelectorAll('.st-trans-btn').forEach(function (b) {
+        b.setAttribute('aria-expanded', String(open));
+      });
+      if (open) loadGoogleTranslate();
+    });
+  }
 
   function initTranslate() {
-    var box = document.createElement('div');
-    box.className = 'st-translate';
-    box.innerHTML = '<button class="st-trans-btn" type="button">' + esc(t('translate')) + '</button>' +
-      '<div class="st-trans-body" hidden><p class="tiny muted">' + esc(t('translateNote')) + '</p>' +
-      '<div id="google_translate_element"></div></div>';
-    var host = document.querySelector('.footer-bottom');
-    (host || document.body).appendChild(box);
+    var panel = ensureTranslatePanel();
+    var headerHost = document.querySelector('.site-header .tools');
+    var drawerHost = document.querySelector('.drawer-lang');
+    var footerHost = document.querySelector('.footer-bottom');
 
-    box.querySelector('.st-trans-btn').addEventListener('click', function () {
-      var body = box.querySelector('.st-trans-body');
-      body.hidden = !body.hidden;
-      if (body.hidden || window.__gtLoaded) return;
-      window.__gtLoaded = true;
-      window.__gtInit = function () {
-        /* eslint-disable no-undef */
-        new google.translate.TranslateElement({
-          pageLanguage: GT_CODES[LOC] || 'en',
-          includedLanguages: 'en,zh-TW,zh-CN,th,ja,ko,vi,id,ms,fr,de,es,pt,ar',
-          layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false
-        }, 'google_translate_element');
-      };
-      var s = document.createElement('script');
-      s.src = 'https://translate.google.com/translate_a/element.js?cb=__gtInit';
-      s.async = true;
-      document.body.appendChild(s);
-    });
+    if (headerHost) {
+      var headerBox = makeTranslateTrigger('st-translate--header');
+      var lang = headerHost.querySelector('.lang');
+      if (lang && lang.nextSibling) headerHost.insertBefore(headerBox, lang.nextSibling);
+      else if (lang) headerHost.appendChild(headerBox);
+      else {
+        var menu = headerHost.querySelector('.menu-btn');
+        if (menu) headerHost.insertBefore(headerBox, menu);
+        else headerHost.appendChild(headerBox);
+      }
+      wireTranslateButton(headerBox.querySelector('.st-trans-btn'));
+    }
+
+    if (drawerHost) {
+      var drawerBox = makeTranslateTrigger('st-translate--drawer');
+      drawerHost.appendChild(drawerBox);
+      wireTranslateButton(drawerBox.querySelector('.st-trans-btn'));
+    }
+
+    if (footerHost && !footerHost.querySelector('.st-translate')) {
+      var footBox = makeTranslateTrigger('st-translate--footer');
+      footerHost.appendChild(footBox);
+      wireTranslateButton(footBox.querySelector('.st-trans-btn'));
+    }
+
+    return panel;
   }
 
 

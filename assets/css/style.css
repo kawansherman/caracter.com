@@ -277,11 +277,13 @@ code { font-family: var(--font-mono); font-size: .9em; color: var(--blue); }
 }
 .drawer-t { font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
 .drawer-lang {
-  display: flex; justify-content: flex-start; margin-bottom: 16px; flex: 0 0 auto;
+  display: flex; flex-direction: column; align-items: stretch; gap: 10px;
+  justify-content: flex-start; margin-bottom: 16px; flex: 0 0 auto;
 }
 .drawer-lang .lang {
   flex-wrap: wrap;
   max-width: 100%;
+  align-self: flex-start;
 }
 .drawer-nav { flex: 1 1 auto; min-height: 0; }
 .drawer-nav ul { display: grid; gap: 6px; }
@@ -586,9 +588,10 @@ html.is-locked .st-chat { display: none !important; visibility: hidden; }
   .nav { display: none; }
   .menu-btn { display: inline-flex; }
   .hide-sm { display: none; }
-  /* Keep header to logo + search + MENU — langs live in the drawer */
+  /* Keep header to logo + search + MENU — langs/translate live in the drawer */
   .lang--header,
-  .site-header .tools > .lang { display: none !important; }
+  .site-header .tools > .lang,
+  .st-translate--header { display: none !important; }
   .site-header { overflow: hidden; }
   .site-header .wrap { overflow: hidden; }
   .header-in { gap: 10px; min-height: 58px; }
@@ -844,15 +847,76 @@ html.is-locked .st-chat { display: none !important; visibility: hidden; }
 .st-chat-links a { color: var(--blue); }
 .st-chat-form { display: flex; gap: 8px; padding: 10px 12px; border-top: 1px solid var(--line-2); }
 
-.st-translate { margin-top: 10px; }
+.st-translate { display: inline-flex; align-items: center; flex: 0 0 auto; }
 .st-trans-btn {
-  padding: 7px 13px; border: 1px solid var(--line); border-radius: var(--radius-pill);
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 34px; padding: 0 12px;
+  border: 1px solid var(--line); border-radius: var(--radius-pill);
   background: var(--paper); color: var(--muted); cursor: pointer;
   font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  transition: color .2s var(--ease), border-color .2s var(--ease);
 }
-.st-trans-btn:hover { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
-.st-trans-body { margin-top: 10px; }
-.st-trans-body .goog-te-gadget { font-size: 12px; }
+.st-trans-btn:hover,
+.st-trans-btn[aria-expanded="true"] {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.st-trans-ico { display: inline-flex; }
+.st-trans-label { white-space: nowrap; }
+.st-translate--drawer { margin-top: 10px; width: 100%; }
+.st-translate--drawer .st-trans-btn { width: 100%; justify-content: center; }
+.st-translate--footer { margin-left: auto; }
+
+.st-gt-panel {
+  position: fixed; inset: 0; z-index: 130;
+  display: grid; place-items: center;
+  padding: 18px;
+  background: rgba(15, 18, 28, .42);
+  backdrop-filter: blur(6px);
+}
+.st-gt-panel[hidden] { display: none !important; }
+.st-gt-card {
+  width: min(360px, 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  box-shadow: 0 30px 80px rgba(15, 18, 28, .16);
+  padding: 14px 14px 16px;
+}
+.st-gt-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  margin-bottom: 8px;
+}
+.st-gt-head strong { font-size: 14px; color: var(--ink-950); letter-spacing: .01em; }
+.st-gt-note { margin: 0 0 12px; line-height: 1.5; }
+#google_translate_element { min-height: 40px; }
+#google_translate_element .goog-te-gadget {
+  font-family: var(--font-body) !important;
+  font-size: 13px !important;
+  color: var(--ink-800) !important;
+}
+#google_translate_element .goog-te-combo {
+  width: 100%;
+  max-width: 100%;
+  min-height: 40px;
+  margin-top: 6px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper-2);
+  color: var(--ink-900);
+  font-size: 14px;
+}
+/* Hide Google's default top banner so layout stays intact */
+.goog-te-banner-frame,
+.goog-te-balloon-frame,
+#goog-gt-tt,
+.goog-tooltip,
+.goog-te-spinner-pos { display: none !important; }
+body { top: 0 !important; }
+html.translated-ltr body,
+html.translated-rtl body { top: 0 !important; }
+.skiptranslate iframe { visibility: hidden !important; height: 0 !important; }
 
 /* ---------- WhatsApp / WeChat float ------------------------------------ */
 .ca-float-dock {
@@ -931,7 +995,7 @@ html.is-locked .st-chat { display: none !important; visibility: hidden; }
 html.ca-wechat-open { overflow: hidden; }
 
 @media print {
-  .st-modal, .st-chat, .st-launch, .st-translate,
+  .st-modal, .st-chat, .st-launch, .st-translate, .st-gt-panel,
   .ca-float-dock, .ca-wechat-modal { display: none !important; }
 }
 

@@ -36,15 +36,13 @@
     { page: 'contact', href: 'contact.html', key: 'nav.contact' }
   ];
 
-  function brandMark() {
-    return '<svg class="mark" viewBox="0 0 44 44" role="img" aria-label="CARACTER">' +
-      '<defs><linearGradient id="cagrad" x1="0" y1="0" x2="1" y2="1">' +
-      '<stop offset="0" stop-color="#1AA8B8"/><stop offset=".58" stop-color="#3D6AE8"/>' +
-      '<stop offset="1" stop-color="#6B5CE6"/></linearGradient></defs>' +
-      '<rect x="1.5" y="1.5" width="41" height="41" rx="9" fill="none" stroke="url(#cagrad)" stroke-width="2"/>' +
-      '<path d="M28.5 15.2a8.2 8.2 0 1 0 0 13.6" fill="none" stroke="url(#cagrad)" stroke-width="3.2" stroke-linecap="round"/>' +
-      '<circle cx="30.5" cy="22" r="2.6" fill="url(#cagrad)"/>' +
-      '</svg>';
+  function brandMark(kind) {
+    var p = prefix();
+    /* CATRACTER wordmark asset (logo file spelling); product copy stays CARACTER. */
+    if (kind === 'wordmark') {
+      return '<img class="brand-logo" src="' + p + 'assets/img/brand/catracter-logo.png" width="168" height="33" alt="CATRACTER">';
+    }
+    return '<img class="mark mark--img" src="' + p + 'assets/img/brand/catracter-icon.png" width="32" height="32" alt="">';
   }
 
   function langSwitch(pfx) {
@@ -61,8 +59,7 @@
     var p = prefix();
     var page = doc.body.getAttribute('data-page') || '';
     return '<div class="wrap header-in">' +
-      '<a class="brand" href="' + p + 'index.html">' + brandMark() +
-        '<span class="brand-t">CARACTER</span></a>' +
+      '<a class="brand" href="' + p + 'index.html">' + brandMark('wordmark') + '</a>' +
       '<nav class="nav" aria-label="Primary"><ul>' +
         NAV.map(n => '<li><a href="' + p + n.href + '"' +
           (n.page === page ? ' aria-current="page"' : '') + '>' + esc(t(n.key)) + '</a></li>').join('') +
@@ -117,8 +114,8 @@
 
     return '<div class="wrap">' +
       '<div class="footer-grid">' +
-        '<div class="fbrand">' + brandMark() +
-          '<p class="fbrand-t">CARACTER</p>' +
+        '<div class="fbrand">' + brandMark('wordmark') +
+          '<p class="fbrand-t sr-only">CARACTER</p>' +
           '<p class="fbrand-s">' + esc(FM.i18n ? FM.i18n.pick(FM.config.tagline) : '') + '</p>' +
           '<p class="fbrand-c"><a href="mailto:' + esc(FM.config.contact.general) + '">' +
             esc(FM.config.contact.general) + '</a></p>' +

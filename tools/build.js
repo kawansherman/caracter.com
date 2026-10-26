@@ -156,7 +156,12 @@ ${hreflang}
   <meta name="twitter:title" content="${esc(title)}">
   <meta name="twitter:description" content="${esc(meta.desc)}">
   <meta name="twitter:image" content="${esc(og)}">
+  <link rel="icon" href="${root}assets/img/favicon.ico" sizes="any">
   <link rel="icon" href="${root}assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="32x32" href="${root}assets/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="${root}assets/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" href="${root}assets/img/apple-touch-icon.png">
+  <link rel="manifest" href="${root}site.webmanifest">
   <link rel="stylesheet" href="${root}assets/css/style.css">
   <script type="application/ld+json">${JSON.stringify(schema)}</script>
 </head>

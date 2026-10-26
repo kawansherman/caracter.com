@@ -42,6 +42,7 @@
     },
 
     locales: ['en', 'zh-Hant', 'zh-Hans', 'th', 'ja'],
+    defaultLocale: 'en',
 
     /* Contact routing. Each address owns one desk; the forms route by kind so
      * an enquiry never lands in the wrong inbox. */

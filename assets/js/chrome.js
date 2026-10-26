@@ -39,8 +39,8 @@
   function brandMark() {
     return '<svg class="mark" viewBox="0 0 44 44" role="img" aria-label="CARACTER">' +
       '<defs><linearGradient id="cagrad" x1="0" y1="0" x2="1" y2="1">' +
-      '<stop offset="0" stop-color="#38D9E8"/><stop offset=".58" stop-color="#4C7CF5"/>' +
-      '<stop offset="1" stop-color="#7B6BF0"/></linearGradient></defs>' +
+      '<stop offset="0" stop-color="#1AA8B8"/><stop offset=".58" stop-color="#3D6AE8"/>' +
+      '<stop offset="1" stop-color="#6B5CE6"/></linearGradient></defs>' +
       '<rect x="1.5" y="1.5" width="41" height="41" rx="9" fill="none" stroke="url(#cagrad)" stroke-width="2"/>' +
       '<path d="M28.5 15.2a8.2 8.2 0 1 0 0 13.6" fill="none" stroke="url(#cagrad)" stroke-width="3.2" stroke-linecap="round"/>' +
       '<circle cx="30.5" cy="22" r="2.6" fill="url(#cagrad)"/>' +

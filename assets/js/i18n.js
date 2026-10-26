@@ -238,13 +238,11 @@
   }
   function getLocale() { return current; }
   function detect() {
+    /* Site default is always English. Honor an explicit user choice stored in
+     * localStorage; do not auto-switch from the browser language on first load. */
     var stored = null;
     try { stored = root.localStorage.getItem('ca.locale'); } catch (e) {}
     if (stored && DICT[stored]) return stored;
-    var nav = (root.navigator && (root.navigator.language || root.navigator.userLanguage)) || 'en';
-    if (/^zh\b/i.test(nav)) return (/hans|cn|sg|my/i.test(nav) ? 'zh-Hans' : 'zh-Hant');
-    if (/^th\b/i.test(nav)) return 'th';
-    if (/^ja\b/i.test(nav)) return 'ja';
     return 'en';
   }
   function pick(field, locale) {

@@ -4,62 +4,82 @@
 
 A B2B platform that turns licensed characters into content, campaigns and product — with the rights, the production and the supply chain coordinated in one place.
 
+Site: https://catracter.com
+Brand: CARACTER (character licensing / IP × creative tech × brand collaboration)
+Default language: English (en). Also: zh-Hant, zh-Hans, th, ja (in-page switch; same URLs).
+
+## What CARACTER is
+
+- B2B character-licensing platform: rights, AI content production, creator campaigns, and physical supply chain in one coordination layer.
+- Not a consumer storefront and not an open licence catalogue. Visiting the site does not grant a licence.
+- Primary public host today: catracter.com. Brand spelling remains CARACTER.
+
 ## Key facts
 
 - Two commercial routes: digital (licence, AI content, creator campaigns, measured revenue) and physical (licence, supplier matching, samples, inspection, production, fulfilment).
 - Six groups connected: IP owners, Brands, MCN & KOL, AI content producers, Manufacturers, Distribution partners.
-- Licensable collections: FURI MONSTER (open — rights status: demonstration only, not an offer of a licence).
-- Languages: en, zh-Hant, zh-Hans, th, ja. The five languages are built into the page; Google Translate is optional and loads only on request.
-- Status: concept build. Domain ownership and trade mark position are not yet confirmed.
-- Site tools: in-page search over a static index, and a scripted assistant that answers only from text on this site (it is not a live model).
+- Demonstration collection on site: FURI MONSTER (open) — rights status: demonstration only, not an offer of a licence.
+- Languages: en, zh-Hant, zh-Hans, th, ja. Built into the page; Google Translate is optional and loads only on request.
+- Contact: hello@caracter.com. WhatsApp / WeChat desks are published on the site for partnership enquiries.
+- Play / games lobby (FURI MONSTER demos): https://catracter.com/play.html
+- Status: public marketing site live on catracter.com. Trade mark / brand-domain (caracter.com) ownership may still be separate from the live host.
+
+## Machine-readable surfaces
+
+- Sitemap: https://catracter.com/sitemap.xml
+- Robots: https://catracter.com/robots.txt
+- This file: https://catracter.com/llms.txt
+- JSON-LD Organization + WebSite on every HTML page
+- In-page search index: https://catracter.com/search-index.json (titles and headings only)
 
 ## Pages
 
-- [about](https://caracter.com/about.html)
-- [cases/index](https://caracter.com/cases/index.html)
-- [contact](https://caracter.com/contact.html)
-- [explore/furi-monster](https://caracter.com/explore/furi-monster.html)
-- [explore/index](https://caracter.com/explore/index.html)
-- [how-it-works](https://caracter.com/how-it-works.html)
-- [index](https://caracter.com/)
-- [legal/ai-notice](https://caracter.com/legal/ai-notice.html)
-- [legal/licensing-policy](https://caracter.com/legal/licensing-policy.html)
-- [legal/privacy](https://caracter.com/legal/privacy.html)
-- [legal/terms](https://caracter.com/legal/terms.html)
-- [partner/become-a-partner](https://caracter.com/partner/become-a-partner.html)
-- [partner/creators](https://caracter.com/partner/creators.html)
-- [partner/index](https://caracter.com/partner/index.html)
-- [partner/submit-ip](https://caracter.com/partner/submit-ip.html)
-- [partner/suppliers](https://caracter.com/partner/suppliers.html)
-- [play](https://caracter.com/play.html)
-- [solutions/index](https://caracter.com/solutions/index.html)
-- [studio/index](https://caracter.com/studio/index.html)
-- [supply-chain/index](https://caracter.com/supply-chain/index.html)
-- [supply-chain/rfq](https://caracter.com/supply-chain/rfq.html)
-- [supply-chain/standards](https://caracter.com/supply-chain/standards.html)
-- [trust](https://caracter.com/trust.html)
-- [why-caracter](https://caracter.com/why-caracter.html)
-- [explore/furi-monster/furi-prince](https://caracter.com/explore/furi-monster/furi-prince.html)
-- [explore/furi-monster/pinki](https://caracter.com/explore/furi-monster/pinki.html)
-- [explore/furi-monster/winggo](https://caracter.com/explore/furi-monster/winggo.html)
-- [explore/furi-monster/fluffu](https://caracter.com/explore/furi-monster/fluffu.html)
-- [explore/furi-monster/boxo](https://caracter.com/explore/furi-monster/boxo.html)
-- [explore/furi-monster/bubi](https://caracter.com/explore/furi-monster/bubi.html)
-- [solutions/ip-owners](https://caracter.com/solutions/ip-owners.html)
-- [solutions/brands](https://caracter.com/solutions/brands.html)
-- [solutions/mcn](https://caracter.com/solutions/mcn.html)
-- [solutions/producers](https://caracter.com/solutions/producers.html)
-- [solutions/manufacturers](https://caracter.com/solutions/manufacturers.html)
-- [solutions/distribution](https://caracter.com/solutions/distribution.html)
-- [studio/short-drama](https://caracter.com/studio/short-drama.html)
-- [studio/brand-video](https://caracter.com/studio/brand-video.html)
-- [studio/live-and-avatar](https://caracter.com/studio/live-and-avatar.html)
-- [studio/localisation](https://caracter.com/studio/localisation.html)
+- [about](https://catracter.com/about.html)
+- [cases/index](https://catracter.com/cases/index.html)
+- [contact](https://catracter.com/contact.html)
+- [explore/furi-monster](https://catracter.com/explore/furi-monster.html)
+- [explore/index](https://catracter.com/explore/index.html)
+- [how-it-works](https://catracter.com/how-it-works.html)
+- [index](https://catracter.com/)
+- [legal/ai-notice](https://catracter.com/legal/ai-notice.html)
+- [legal/licensing-policy](https://catracter.com/legal/licensing-policy.html)
+- [legal/privacy](https://catracter.com/legal/privacy.html)
+- [legal/terms](https://catracter.com/legal/terms.html)
+- [partner/become-a-partner](https://catracter.com/partner/become-a-partner.html)
+- [partner/creators](https://catracter.com/partner/creators.html)
+- [partner/index](https://catracter.com/partner/index.html)
+- [partner/submit-ip](https://catracter.com/partner/submit-ip.html)
+- [partner/suppliers](https://catracter.com/partner/suppliers.html)
+- [play](https://catracter.com/play.html)
+- [solutions/index](https://catracter.com/solutions/index.html)
+- [studio/index](https://catracter.com/studio/index.html)
+- [supply-chain/index](https://catracter.com/supply-chain/index.html)
+- [supply-chain/rfq](https://catracter.com/supply-chain/rfq.html)
+- [supply-chain/standards](https://catracter.com/supply-chain/standards.html)
+- [trust](https://catracter.com/trust.html)
+- [why-caracter](https://catracter.com/why-caracter.html)
+- [explore/furi-monster/furi-prince](https://catracter.com/explore/furi-monster/furi-prince.html)
+- [explore/furi-monster/pinki](https://catracter.com/explore/furi-monster/pinki.html)
+- [explore/furi-monster/winggo](https://catracter.com/explore/furi-monster/winggo.html)
+- [explore/furi-monster/fluffu](https://catracter.com/explore/furi-monster/fluffu.html)
+- [explore/furi-monster/boxo](https://catracter.com/explore/furi-monster/boxo.html)
+- [explore/furi-monster/bubi](https://catracter.com/explore/furi-monster/bubi.html)
+- [solutions/ip-owners](https://catracter.com/solutions/ip-owners.html)
+- [solutions/brands](https://catracter.com/solutions/brands.html)
+- [solutions/mcn](https://catracter.com/solutions/mcn.html)
+- [solutions/producers](https://catracter.com/solutions/producers.html)
+- [solutions/manufacturers](https://catracter.com/solutions/manufacturers.html)
+- [solutions/distribution](https://catracter.com/solutions/distribution.html)
+- [studio/short-drama](https://catracter.com/studio/short-drama.html)
+- [studio/brand-video](https://catracter.com/studio/brand-video.html)
+- [studio/live-and-avatar](https://catracter.com/studio/live-and-avatar.html)
+- [studio/localisation](https://catracter.com/studio/localisation.html)
 
-## Notes for citation
+## Notes for citation (do not invent beyond these)
 
 - Figures attributed to partners are partner-provided and not independently audited.
 - AI-generated content carries a four-part disclosure: what was AI-assisted, which tool, what a human reviewed, and what should not be inferred.
 - No licence is granted by visiting this site; a licence exists only when both parties sign.
-- FURI MONSTER is used as an in-house demonstration. Trademark, copyright and commercial authorisation are not documented, so it must not be described as available for licensing.
+- FURI MONSTER is an in-house demonstration. Trademark, copyright and commercial authorisation are not documented here, so it must not be described as available for licensing.
 - Pricing is quoted per project; the site publishes no fee, rate or royalty figure.
+- Analytics (when enabled) records aggregate events only; advertising storage is denied.

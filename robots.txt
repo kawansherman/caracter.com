@@ -1,15 +1,27 @@
-# CARACTER.com
+# CARACTER — catracter.com
 User-agent: *
 Allow: /
 Disallow: /tools/
 Disallow: /src/
 
-# Answer engines are welcome: the catalogue is the product.
+# Answer engines / generative search crawlers are welcome.
 User-agent: GPTBot
 Allow: /
 User-agent: OAI-SearchBot
 Allow: /
+User-agent: ChatGPT-User
+Allow: /
 User-agent: ClaudeBot
+Allow: /
+User-agent: anthropic-ai
 Allow: /
 User-agent: PerplexityBot
 Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+User-agent: Bytespider
+Allow: /
+
+Sitemap: https://catracter.com/sitemap.xml

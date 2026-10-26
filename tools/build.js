@@ -113,8 +113,13 @@ function shell(meta, body) {
     '@graph': [
       {
         '@type': 'Organization', '@id': CFG.url + '/#org', name: 'CARACTER',
+        alternateName: ['CARACTER.com', 'catracter.com'],
         url: CFG.url, slogan: en(CFG.tagline), description: en(CFG.positioning),
-        email: CFG.contact.general
+        email: CFG.contact.general,
+        contactPoint: [{
+          '@type': 'ContactPoint', contactType: 'sales', email: CFG.contact.general,
+          availableLanguage: LOCALES
+        }]
       },
       {
         '@type': 'WebSite', '@id': CFG.url + '/#website', url: CFG.url,
@@ -124,6 +129,10 @@ function shell(meta, body) {
   };
   if (meta.jsonld) schema['@graph'] = schema['@graph'].concat(meta.jsonld);
 
+  const hreflang = LOCALES.map(l =>
+    `  <link rel="alternate" hreflang="${esc(l)}" href="${esc(canon)}">`
+  ).join('\n') + `\n  <link rel="alternate" hreflang="x-default" href="${esc(canon)}">`;
+
   return `<!DOCTYPE html>
 <html lang="en" data-locale="en" data-root="${root}">
 <head>
@@ -131,15 +140,22 @@ function shell(meta, body) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(meta.desc)}">
+  <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="${esc(canon)}">
-  <meta name="theme-color" content="#0A0B0F">
+${hreflang}
+  <meta name="theme-color" content="#FFFFFF">
   <meta property="og:type" content="${esc(meta.ogType || 'website')}">
   <meta property="og:site_name" content="CARACTER">
+  <meta property="og:locale" content="en_US">
   <meta property="og:title" content="${esc(title)}">
   <meta property="og:description" content="${esc(meta.desc)}">
   <meta property="og:url" content="${esc(canon)}">
   <meta property="og:image" content="${esc(og)}">
+  <meta property="og:image:alt" content="CARACTER — Where characters become business.">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${esc(title)}">
+  <meta name="twitter:description" content="${esc(meta.desc)}">
+  <meta name="twitter:image" content="${esc(og)}">
   <link rel="icon" href="${root}assets/img/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="${root}assets/css/style.css">
   <script type="application/ld+json">${JSON.stringify(schema)}</script>
@@ -153,6 +169,7 @@ ${body}
 
   <footer id="ca-footer"></footer>
   <script src="${root}assets/js/site.config.js"></script>
+  <script src="${root}assets/js/analytics.js"></script>
   <script src="${root}assets/js/data.js"></script>
   <script src="${root}assets/js/i18n.js"></script>
   <script src="${root}assets/js/chrome.js"></script>
@@ -569,21 +586,33 @@ ${pages.map(w => `  <url>
 `;
   written.push({ file: 'sitemap.xml', text: sitemap });
 
-  const robots = `# CARACTER.com
+  const robots = `# CARACTER — ${CFG.domain}
 User-agent: *
 Allow: /
 Disallow: /tools/
 Disallow: /src/
 
-# Answer engines are welcome: the catalogue is the product.
+# Answer engines / generative search crawlers are welcome.
 User-agent: GPTBot
 Allow: /
 User-agent: OAI-SearchBot
 Allow: /
+User-agent: ChatGPT-User
+Allow: /
 User-agent: ClaudeBot
+Allow: /
+User-agent: anthropic-ai
 Allow: /
 User-agent: PerplexityBot
 Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+User-agent: Bytespider
+Allow: /
+
+Sitemap: ${CFG.url}/sitemap.xml
 `;
   written.push({ file: 'robots.txt', text: robots });
 
@@ -593,26 +622,46 @@ Allow: /
 
 ${en(CFG.positioning)}
 
+Site: ${CFG.url}
+Brand: CARACTER (character licensing / IP × creative tech × brand collaboration)
+Default language: English (${CFG.defaultLocale || 'en'}). Also: ${LOCALES.filter(l => l !== 'en').join(', ')} (in-page switch; same URLs).
+
+## What CARACTER is
+
+- B2B character-licensing platform: rights, AI content production, creator campaigns, and physical supply chain in one coordination layer.
+- Not a consumer storefront and not an open licence catalogue. Visiting the site does not grant a licence.
+- Primary public host today: ${CFG.domain}. Brand spelling remains CARACTER.
+
 ## Key facts
 
 - Two commercial routes: digital (licence, AI content, creator campaigns, measured revenue) and physical (licence, supplier matching, samples, inspection, production, fulfilment).
 - Six groups connected: ${D.groups.map(g => en(g.name)).join(', ')}.
-- Licensable collections: ${D.collections.map(c => en(c.name) + ' (' + en(c.status) + ' — rights status: demonstration only, not an offer of a licence)').join(', ')}.
-- Languages: ${LOCALES.join(', ')}. The five languages are built into the page; Google Translate is optional and loads only on request.
-- Status: concept build. Domain ownership and trade mark position are not yet confirmed.
-- Site tools: in-page search over a static index, and a scripted assistant that answers only from text on this site (it is not a live model).
+- Demonstration collection on site: ${D.collections.map(c => en(c.name) + ' (' + en(c.status) + ')').join(', ')} — rights status: demonstration only, not an offer of a licence.
+- Languages: ${LOCALES.join(', ')}. Built into the page; Google Translate is optional and loads only on request.
+- Contact: ${CFG.contact.general}. WhatsApp / WeChat desks are published on the site for partnership enquiries.
+- Play / games lobby (FURI MONSTER demos): ${CFG.url}/play.html
+- Status: public marketing site live on ${CFG.domain}. Trade mark / brand-domain (caracter.com) ownership may still be separate from the live host.
+
+## Machine-readable surfaces
+
+- Sitemap: ${CFG.url}/sitemap.xml
+- Robots: ${CFG.url}/robots.txt
+- This file: ${CFG.url}/llms.txt
+- JSON-LD Organization + WebSite on every HTML page
+- In-page search index: ${CFG.url}/search-index.json (titles and headings only)
 
 ## Pages
 
 ${pages.map(w => `- [${w.file.replace('.html', '')}](${CFG.url}/${w.file === 'index.html' ? '' : w.file})`).join('\n')}
 
-## Notes for citation
+## Notes for citation (do not invent beyond these)
 
 - Figures attributed to partners are partner-provided and not independently audited.
 - AI-generated content carries a four-part disclosure: what was AI-assisted, which tool, what a human reviewed, and what should not be inferred.
 - No licence is granted by visiting this site; a licence exists only when both parties sign.
-- FURI MONSTER is used as an in-house demonstration. Trademark, copyright and commercial authorisation are not documented, so it must not be described as available for licensing.
+- FURI MONSTER is an in-house demonstration. Trademark, copyright and commercial authorisation are not documented here, so it must not be described as available for licensing.
 - Pricing is quoted per project; the site publishes no fee, rate or royalty figure.
+- Analytics (when enabled) records aggregate events only; advertising storage is denied.
 `;
   written.push({ file: 'llms.txt', text: llms });
 

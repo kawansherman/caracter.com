@@ -10,14 +10,12 @@
 
   var CFG = {
     brand: 'CARACTER',
-    domain: 'caracter.com',
-    url: 'https://caracter.com',                      /* no trailing slash */
-
-    /* Status of the domain: UNCONFIRMED. caracter.com did not respond during
-     * checking and ownership and the trade mark position are unresolved. The
-     * site is built and reviewed locally until that is settled — see the
-     * specification, section 3.2. Nothing in the build depends on this value. */
-    domainStatus: 'unconfirmed',
+    /* Public production host (GoDaddy → Vercel). Brand spelling remains CARACTER;
+     * caracter.com is reserved as an alternate when ownership is confirmed. */
+    domain: 'catracter.com',
+    url: 'https://catracter.com',                      /* no trailing slash */
+    brandDomain: 'caracter.com',
+    domainStatus: 'live',
 
     tagline: {
       en: 'Where characters become business.',
@@ -97,8 +95,11 @@
     },
 
     analytics: {
-      /* Nothing third-party loads before consent. Empty until configured. */
-      ga4: ''
+      /* GA4 measurement id. Empty disables all third-party analytics scripts.
+       * Reuses the commercialisation.ai property (G-N1W879TZ2Z) until a
+       * dedicated CARACTER property is created — replace to split traffic. */
+      ga4: 'G-N1W879TZ2Z',
+      gaMeasurementId: 'G-N1W879TZ2Z'
     },
 
     /* Market-context links used on the positioning pages. All attributed. */

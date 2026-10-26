@@ -62,8 +62,11 @@ files.forEach(f => {
   if (!/<title>[^<]{10,}<\/title>/.test(html)) problems.push(rel + ': no usable <title>');
   const desc = html.match(/<meta name="description" content="([^"]*)"/);
   if (!desc || desc[1].length < 40) problems.push(rel + ': meta description missing or too short');
-  if (!/<link rel="canonical" href="https:\/\/caracter\.com\//.test(html)) problems.push(rel + ': canonical missing or not absolute');
-  if (!/property="og:image" content="https:\/\/caracter\.com\//.test(html)) problems.push(rel + ': og:image missing');
+  const origin = (FM.config.url || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  if (!new RegExp('<link rel="canonical" href="' + origin + '/').test(html)) problems.push(rel + ': canonical missing or not absolute');
+  if (!new RegExp('property="og:image" content="' + origin + '/').test(html)) problems.push(rel + ': og:image missing');
+  if (!/name="twitter:title"/.test(html)) problems.push(rel + ': twitter:title missing');
+  if (!/assets\/js\/analytics\.js/.test(html)) problems.push(rel + ': analytics.js not loaded');
   if (!/application\/ld\+json/.test(html)) problems.push(rel + ': no JSON-LD');
   if (!/data-root="/.test(html)) problems.push(rel + ': <html> has no data-root prefix');
 

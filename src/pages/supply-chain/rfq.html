@@ -1,0 +1,36 @@
+﻿<!--FM
+{
+  "file": "supply-chain/rfq.html",
+  "page": "supply",
+  "root": "../",
+  "title": "Start an RFQ",
+  "desc": "Submit a product requirement for supplier matching: category, materials, target cost, quantity, destination market and required certifications.",
+  "canonical": "supply-chain/rfq.html"
+}
+-->
+<main id="main">
+  <section class="page-head" style="--a:var(--accent)">
+    <div class="wrap">
+      <p class="crumbs"><a href="{{ROOT}}index.html">{{T:Home|首頁|首页|หน้าแรก|ホーム}}</a><span class="crumb-sep">/</span><a href="{{ROOT}}supply-chain/index.html">{{T:Supply Chain|供應鏈|供应链|ซัพพลายเชน|サプライチェーン}}</a><span class="crumb-sep">/</span><span>{{T:RFQ|RFQ|RFQ|RFQ|RFQ}}</span></p>
+      <p class="eyebrow">{{T:Request for quotation|報價需求|报价需求|ขอใบเสนอราคา|見積依頼}}</p>
+      <h1 class="display balance">{{T:Tell us the product and the market|告訴我們產品與市場|告诉我们产品与市场|บอกเราถึงสินค้าและตลาด|製品と市場を教えてください}}</h1>
+      <p class="lede" style="margin-top:20px">{{T:This is not an instant quote and we will not pretend it is. A real requirement is screened, matched to two to four suppliers, and answered with a reference number and a stated response time.|這不是即時報價，我們也不會假裝它是。真實的需求會被初篩、配對到兩至四家供應商，並以案號與明確的回覆時間回覆。|这不是即时报价，我们也不会假装它是。真实的需求会被初筛、配对到两至四家供应商，并以案号与明确的回复时间回复。}}</p>
+    </div>
+  </section>
+  <section class="section section--tight">
+    <div class="wrap">
+<form class="form" data-form="rfq" novalidate>
+<div class="form-row"><div class="field"><label for="f-company">{{T:Company|公司|公司}}</label><input id="f-company" type="text" name="company" required></div><div class="field"><label for="f-name">{{T:Name|姓名|姓名}}</label><input id="f-name" type="text" name="name" required></div></div>
+<div class="form-row"><div class="field"><label for="f-email">{{T:Email|電子郵件|电子邮件}}</label><input id="f-email" type="email" name="email" required></div><div class="field"><label for="f-market">{{T:Destination market|目標市場|目标市场}}</label><input id="f-market" type="text" name="market" required></div></div>
+<div class="form-row"><div class="field"><label for="f-category">{{T:Product category|產品類別|产品类别}}</label><select id="f-category" name="category" required><option value="—">—</option><option value="Plush">Plush</option><option value="Vinyl figure">Vinyl figure</option><option value="Blind box">Blind box</option><option value="Apparel">Apparel</option><option value="Stationery">Stationery</option><option value="Drinkware">Drinkware</option><option value="Lifestyle">Lifestyle</option><option value="Other">Other</option></select></div><div class="field"><label for="f-quantity">{{T:Target quantity|目標數量|目标数量}}</label><input id="f-quantity" type="text" name="quantity" required></div></div>
+<div class="form-row"><div class="field"><label for="f-unitcost">{{T:Target unit cost|目標單位成本|目标单位成本}}</label><input id="f-unitcost" type="text" name="unitcost"></div><div class="field"><label for="f-retail">{{T:Target retail price|目標零售價|目标零售价}}</label><input id="f-retail" type="text" name="retail"></div></div>
+<div class="form-row"><div class="field"><label for="f-launch">{{T:Target launch date|目標上市日期|目标上市日期}}</label><input id="f-launch" type="text" name="launch"></div><div class="field"><label for="f-certs">{{T:Required certifications|所需認證|所需认证}}</label><input id="f-certs" type="text" name="certs"></div></div>
+<div class="field"><label for="f-message">{{T:Specification, materials, dimensions and anything else that matters|規格、材料、尺寸及其他重要事項|规格、材料、尺寸及其他重要事项}}</label><textarea id="f-message" name="message" required></textarea></div>
+<div class="field field-consent"><input type="checkbox" id="f-rfq-consent" name="consent" required><label for="f-rfq-consent">{{T:I agree that CARACTER may contact me about this enquiry.|我同意 CARACTER 就此次查詢與我聯絡。|我同意 CARACTER 就此次查询与我联络。}}</label></div>
+<div class="form-status" data-status role="status" aria-live="polite"></div>
+<button class="btn btn--primary" type="submit">{{T:Send|送出|发送}}</button>
+<p class="form-note">{{T:No quotation is binding until it is issued in writing by a matched supplier. Sending this form does not create a licence, an order or a confidentiality obligation.|在配對的供應商以書面發出之前，任何報價都不具約束力。送出此表單不構成授權、訂單或保密義務。|在配对的供应商以书面发出之前，任何报价都不具约束力。送出此表单不构成授权、订单或保密义务。}}</p>
+</form>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,34 @@
+﻿<!--FM
+{
+  "file": "partner/submit-ip.html",
+  "page": "partner",
+  "root": "../",
+  "title": "Submit character IP",
+  "desc": "Offer character IP for the CARACTER catalogue. You keep every right until a written licence is signed.",
+  "canonical": "partner/submit-ip.html"
+}
+-->
+<main id="main">
+  <section class="page-head" style="--a:var(--accent)">
+    <div class="wrap">
+      <p class="crumbs"><a href="{{ROOT}}index.html">{{T:Home|首頁|首页|หน้าแรก|ホーム}}</a><span class="crumb-sep">/</span><a href="{{ROOT}}partner/index.html">{{T:Partner with us|與我們合作|与我们合作|ร่วมงานกับเรา|パートナーになる}}</a><span class="crumb-sep">/</span><span>Submit character IP</span></p>
+      <h1 class="display balance">{{T:You keep every right until a licence is signed|在簽署授權之前，你保留所有權利|在签署授权之前，你保留所有权利}}</h1>
+      <p class="lede" style="margin-top:20px">{{T:Submission does not transfer ownership and does not create a confidentiality obligation in our favour. We ask for an ownership declaration and any existing licences, because a catalogue that cannot prove its rights is worthless to a licensee.|提交不會轉移擁有權，也不會為我們產生保密義務。我們會要求擁有權聲明及現有授權，因為一個無法證明權利的目錄，對被授權方毫無價值。|提交不会转移所有权，也不会为我们产生保密义务。我们会要求所有权声明及现有授权，因为一个无法证明权利的目录，对被授权方毫无价值。}}</p>
+    </div>
+  </section>
+  <section class="section section--tight">
+    <div class="wrap">
+<form class="form" data-form="ip" novalidate>
+<div class="form-row"><div class="field"><label for="f-owner">{{T:Owner / studio|擁有者／工作室|所有者／工作室}}</label><input id="f-owner" type="text" name="owner" required></div><div class="field"><label for="f-name">{{T:Name|姓名|姓名}}</label><input id="f-name" type="text" name="name" required></div></div>
+<div class="form-row"><div class="field"><label for="f-email">{{T:Email|電子郵件|电子邮件}}</label><input id="f-email" type="email" name="email" required></div><div class="field"><label for="f-characters">{{T:How many characters|角色數量|角色数量}}</label><input id="f-characters" type="text" name="characters"></div></div>
+<div class="field"><label for="f-description">{{T:Describe the characters and what makes them licensable|描述這些角色，以及它們為何值得授權|描述这些角色，以及它们为何值得授权}}</label><textarea id="f-description" name="description" required></textarea></div>
+<div class="field"><label for="f-rights">{{T:Ownership declaration and any existing licences or conflicts|擁有權聲明及任何現有授權或衝突|所有权声明及任何现有授权或冲突}}</label><textarea id="f-rights" name="rights" required></textarea></div>
+<div class="field"><label for="f-territories">{{T:Which rights you are offering, and in which territories|你提供哪些權利、在哪些地區|你提供哪些权利、在哪些地区}}</label><input id="f-territories" type="text" name="territories"></div>
+<div class="field field-consent"><input type="checkbox" id="f-ip-consent" name="consent" required><label for="f-ip-consent">{{T:I agree that CARACTER may contact me about this enquiry.|我同意 CARACTER 就此次查詢與我聯絡。|我同意 CARACTER 就此次查询与我联络。}}</label></div>
+<div class="form-status" data-status role="status" aria-live="polite"></div>
+<button class="btn btn--primary" type="submit">{{T:Send|送出|发送}}</button>
+<p class="form-note">{{T:Submitting this form does not create a licence, an order or a confidentiality obligation. We reply within three working days.|送出此表單不構成授權、訂單或保密義務。我們在三個工作日內回覆。|送出此表单不构成授权、订单或保密义务。我们在三个工作日内回复。}}</p>
+</form>
+    </div>
+  </section>
+</main>

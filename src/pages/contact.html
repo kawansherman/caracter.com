@@ -1,0 +1,44 @@
+﻿<!--FM
+{
+  "file": "contact.html",
+  "page": "contact",
+  "root": "",
+  "title": "Contact",
+  "desc": "Reach the right desk: licensing, partnerships, suppliers, press, or a general enquiry. Each route goes to a different address.",
+  "canonical": "contact.html"
+}
+-->
+<main id="main">
+  <section class="page-head" style="--a:var(--accent)">
+    <div class="wrap">
+      <p class="crumbs"><a href="{{ROOT}}index.html">{{T:Home|首頁|首页|หน้าแรก|ホーム}}</a><span class="crumb-sep">/</span><span>{{T:Contact|聯絡|联络|ติดต่อ|お問い合わせ}}</span></p>
+      <h1 class="display balance">{{T:Right desk, first time|一次就到對的桌子|一次就到对的桌子|ถูกโต๊ะตั้งแต่ครั้งแรก|最初から正しい窓口へ}}</h1>
+      <p class="lede" style="margin-top:20px">{{T:Five routes, five addresses. Using the right one is the fastest way to a reply.|五條途徑、五個地址。用對的那個，是得到回覆最快的方法。|五条途径、五个地址。用对的那个，是得到回复最快的方法。}}</p>
+    </div>
+  </section>
+  <section class="section section--tight">
+    <div class="wrap">
+      <div class="tbl-wrap"><table class="tbl" style="min-width:520px">
+        <thead><tr><th>{{T:Enquiry|查詢|查询|การสอบถาม|お問い合わせ}}</th><th>{{T:Address|地址|地址|ที่อยู่|アドレス}}</th></tr></thead>
+        <tbody>
+          <tr><td>{{T:Licensing|授權|授权|การให้สิทธิ์|許諾}}</td><td><a href="mailto:licensing@caracter.com">licensing@caracter.com</a></td></tr>
+          <tr><td>{{T:Partnerships|合作|合作|ความร่วมมือ|提携}}</td><td><a href="mailto:partners@caracter.com">partners@caracter.com</a></td></tr>
+          <tr><td>{{T:Suppliers|供應商|供应商|ผู้ผลิต|サプライヤー}}</td><td><a href="mailto:suppliers@caracter.com">suppliers@caracter.com</a></td></tr>
+          <tr><td>{{T:Press|媒體|媒体|สื่อ|プレス}}</td><td><a href="mailto:press@caracter.com">press@caracter.com</a></td></tr>
+          <tr><td>{{T:Anything else|其他|其他|อื่น ๆ|その他}}</td><td><a href="mailto:hello@caracter.com">hello@caracter.com</a></td></tr>
+        </tbody>
+      </table></div>
+      <div style="margin-top:34px">
+<form class="form" data-form="partnership" novalidate>
+<div class="form-row"><div class="field"><label for="f-name">{{T:Name|姓名|姓名}}</label><input id="f-name" type="text" name="name" required></div><div class="field"><label for="f-email">{{T:Email|電子郵件|电子邮件}}</label><input id="f-email" type="email" name="email" required></div></div>
+<div class="form-row"><div class="field"><label for="f-company">{{T:Company|公司|公司}}</label><input id="f-company" type="text" name="company"></div><div class="field"><label for="f-type">{{T:Enquiry type|查詢類型|查询类型}}</label><select id="f-type" name="type" required><option value="—">—</option><option value="Licensing">Licensing</option><option value="Partnership">Partnership</option><option value="Supplier">Supplier</option><option value="Press">Press</option><option value="Other">Other</option></select></div></div>
+<div class="field"><label for="f-message">{{T:Message|訊息|信息}}</label><textarea id="f-message" name="message" required></textarea></div>
+<div class="field field-consent"><input type="checkbox" id="f-partnership-consent" name="consent" required><label for="f-partnership-consent">{{T:I agree that CARACTER may contact me about this enquiry.|我同意 CARACTER 就此次查詢與我聯絡。|我同意 CARACTER 就此次查询与我联络。}}</label></div>
+<div class="form-status" data-status role="status" aria-live="polite"></div>
+<button class="btn btn--primary" type="submit">{{T:Send|送出|发送}}</button>
+<p class="form-note">{{T:We reply within three working days.|我們在三個工作日內回覆。|我们在三个工作日内回复。}}</p>
+</form>
+      </div>
+    </div>
+  </section>
+</main>

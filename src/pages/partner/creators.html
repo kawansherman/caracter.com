@@ -1,0 +1,33 @@
+﻿<!--FM
+{
+  "file": "partner/creators.html",
+  "page": "partner",
+  "root": "../",
+  "title": "Creator & KOL registration",
+  "desc": "Register as a creator or KOL. Once approved you receive licensed campaign kits with the usage terms attached.",
+  "canonical": "partner/creators.html"
+}
+-->
+<main id="main">
+  <section class="page-head" style="--a:var(--accent)">
+    <div class="wrap">
+      <p class="crumbs"><a href="{{ROOT}}index.html">{{T:Home|首頁|首页|หน้าแรก|ホーム}}</a><span class="crumb-sep">/</span><a href="{{ROOT}}partner/index.html">{{T:Partner with us|與我們合作|与我们合作|ร่วมงานกับเรา|パートナーになる}}</a><span class="crumb-sep">/</span><span>Creator & KOL registration</span></p>
+      <h1 class="display balance">{{T:Register once, then receive licensed material|登記一次，之後收到授權素材|登记一次，之后收到授权素材}}</h1>
+      <p class="lede" style="margin-top:20px">{{T:Approved creators receive campaign kits that already carry their permitted channels, period and disclosure text — so you are not asking for permission every time.|獲批的創作者會收到已附上允許渠道、期間與披露文字的活動素材包 —— 你不必每次問准。|获批的创作者会收到已附上允许渠道、期间与披露文字的活動素材包 —— 你不必每次问准。}}</p>
+    </div>
+  </section>
+  <section class="section section--tight">
+    <div class="wrap">
+<form class="form" data-form="creator" novalidate>
+<div class="form-row"><div class="field"><label for="f-name">{{T:Name|姓名|姓名}}</label><input id="f-name" type="text" name="name" required></div><div class="field"><label for="f-email">{{T:Email|電子郵件|电子邮件}}</label><input id="f-email" type="email" name="email" required></div></div>
+<div class="form-row"><div class="field"><label for="f-platforms">{{T:Platforms and handles|平台與帳號|平台与账号}}</label><input id="f-platforms" type="text" name="platforms" required></div><div class="field"><label for="f-followers">{{T:Audience size|觀眾規模|观众规模}}</label><input id="f-followers" type="text" name="followers" required></div></div>
+<div class="form-row"><div class="field"><label for="f-market">{{T:Main audience market|主要觀眾市場|主要观众市场}}</label><input id="f-market" type="text" name="market" required></div><div class="field"><label for="f-categories">{{T:Content categories|內容類別|内容类别}}</label><input id="f-categories" type="text" name="categories"></div></div>
+<div class="field"><label for="f-examples">{{T:Links to three examples of your work|三個作品連結|三个作品链接}}</label><textarea id="f-examples" name="examples" required></textarea></div>
+<div class="field field-consent"><input type="checkbox" id="f-creator-consent" name="consent" required><label for="f-creator-consent">{{T:I agree that CARACTER may contact me about this enquiry.|我同意 CARACTER 就此次查詢與我聯絡。|我同意 CARACTER 就此次查询与我联络。}}</label></div>
+<div class="form-status" data-status role="status" aria-live="polite"></div>
+<button class="btn btn--primary" type="submit">{{T:Send|送出|发送}}</button>
+<p class="form-note">{{T:Submitting this form does not create a licence, an order or a confidentiality obligation. We reply within three working days.|送出此表單不構成授權、訂單或保密義務。我們在三個工作日內回覆。|送出此表单不构成授权、订单或保密义务。我们在三个工作日内回复。}}</p>
+</form>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,33 @@
+﻿<!--FM
+{
+  "file": "partner/become-a-partner.html",
+  "page": "partner",
+  "root": "../",
+  "title": "Business partnership",
+  "desc": "Start a licensed campaign, request a licence, or discuss a market. Tell us the market, the category and what you have in mind.",
+  "canonical": "partner/become-a-partner.html"
+}
+-->
+<main id="main">
+  <section class="page-head" style="--a:var(--accent)">
+    <div class="wrap">
+      <p class="crumbs"><a href="{{ROOT}}index.html">{{T:Home|首頁|首页|หน้าแรก|ホーム}}</a><span class="crumb-sep">/</span><a href="{{ROOT}}partner/index.html">{{T:Partner with us|與我們合作|与我们合作|ร่วมงานกับเรา|パートナーになる}}</a><span class="crumb-sep">/</span><span>Business partnership</span></p>
+      <h1 class="display balance">{{T:Tell us the market, the category and what you have in mind|告訴我們市場、類別，以及你的想法|告诉我们市场、类别，以及你的想法}}</h1>
+      <p class="lede" style="margin-top:20px">{{T:A named person reads these, and we reply within three working days. The more specific the brief, the more useful the reply.|有名有姓的人會讀這些，我們在三個工作日內回覆。簡報越具體，回覆越有用。|有名有姓的人会读这些，我们在三个工作日内回复。简报越具体，回复越有用。}}</p>
+    </div>
+  </section>
+  <section class="section section--tight">
+    <div class="wrap">
+<form class="form" data-form="partnership" novalidate>
+<div class="form-row"><div class="field"><label for="f-company">{{T:Company|公司|公司}}</label><input id="f-company" type="text" name="company" required></div><div class="field"><label for="f-name">{{T:Name|姓名|姓名}}</label><input id="f-name" type="text" name="name" required></div></div>
+<div class="form-row"><div class="field"><label for="f-email">{{T:Email|電子郵件|电子邮件}}</label><input id="f-email" type="email" name="email" required></div><div class="field"><label for="f-market">{{T:Market|市場|市场}}</label><input id="f-market" type="text" name="market" required></div></div>
+<div class="form-row"><div class="field"><label for="f-type">{{T:Enquiry type|查詢類型|查询类型}}</label><select id="f-type" name="type" required><option value="—">—</option><option value="Licensed campaign">Licensed campaign</option><option value="Licence only">Licence only</option><option value="Distribution / territory">Distribution / territory</option><option value="AI production">AI production</option><option value="Other">Other</option></select></div><div class="field"><label for="f-budget">{{T:Budget range (optional)|預算範圍（可選）|预算范围（可选）}}</label><input id="f-budget" type="text" name="budget"></div></div>
+<div class="field"><label for="f-message">{{T:Message|訊息|信息}}</label><textarea id="f-message" name="message" required></textarea></div>
+<div class="field field-consent"><input type="checkbox" id="f-partnership-consent" name="consent" required><label for="f-partnership-consent">{{T:I agree that CARACTER may contact me about this enquiry.|我同意 CARACTER 就此次查詢與我聯絡。|我同意 CARACTER 就此次查询与我联络。}}</label></div>
+<div class="form-status" data-status role="status" aria-live="polite"></div>
+<button class="btn btn--primary" type="submit">{{T:Send|送出|发送}}</button>
+<p class="form-note">{{T:Submitting this form does not create a licence, an order or a confidentiality obligation. We reply within three working days.|送出此表單不構成授權、訂單或保密義務。我們在三個工作日內回覆。|送出此表单不构成授权、订单或保密义务。我们在三个工作日内回复。}}</p>
+</form>
+    </div>
+  </section>
+</main>

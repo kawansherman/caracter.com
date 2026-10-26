@@ -1,0 +1,15 @@
+# CARACTER.com
+User-agent: *
+Allow: /
+Disallow: /tools/
+Disallow: /src/
+
+# Answer engines are welcome: the catalogue is the product.
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /

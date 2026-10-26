@@ -75,11 +75,10 @@
     },
 
     forms: {
-      /* FormSubmit AJAX → commercialisation.ai@gmail.com. First submission may
-       * require one-time inbox activation; after that submissions deliver. */
+      /* Browser → /api/enquiry (Vercel). Upstream: RESEND_API_KEY, else FormSubmit hash. */
       endpoint: '/api/enquiry',
       provider: 'vercel-api',
-      /* Upstream: Web3FORMS_ACCESS_KEY env on Vercel, else FormSubmit to `to`. */
+      formsubmitId: 'b34dc4f99f2ae624350fb4df8014f82b',
       to: 'commercialisation.ai@gmail.com',
       subjectPrefix: 'CARACTER enquiry',
       routeByKind: {

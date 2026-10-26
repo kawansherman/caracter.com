@@ -137,7 +137,7 @@ function shell(meta, body) {
 <html lang="en" data-locale="en" data-root="${root}">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(meta.desc)}">
   <meta name="robots" content="index,follow,max-image-preview:large">

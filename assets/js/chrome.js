@@ -67,7 +67,8 @@
         NAV.map(n => '<li><a href="' + p + n.href + '"' +
           (n.page === page ? ' aria-current="page"' : '') + '>' + esc(t(n.key)) + '</a></li>').join('') +
       '</ul></nav>' +
-      '<div class="tools">' + langSwitch(p) +
+      '<div class="tools">' +
+        langSwitch(p).replace('class="lang"', 'class="lang lang--header"') +
         '<a class="btn btn--sm btn--primary hide-sm" href="' + p + 'partner/become-a-partner.html">' +
           esc(t('cta.startCollaboration')) + '</a>' +
         '<button class="btn btn--sm menu-btn" type="button" aria-expanded="false" aria-controls="ca-menu">' +
@@ -79,15 +80,20 @@
   function menuHtml() {
     var p = prefix();
     return '<div class="drawer" role="dialog" aria-modal="true" aria-label="' + esc(t('nav.menu')) + '">' +
-      '<div class="drawer-top">' +
-        '<span class="drawer-t">' + esc(t('nav.menu')) + '</span>' +
-        '<button class="btn btn--sm drawer-close" type="button">' + esc(t('nav.close')) + '</button>' +
+      '<div class="drawer-panel">' +
+        '<div class="drawer-top">' +
+          '<span class="drawer-t">' + esc(t('nav.menu')) + '</span>' +
+          '<button class="btn btn--sm drawer-close" type="button">' + esc(t('nav.close')) + '</button>' +
+        '</div>' +
+        '<div class="drawer-lang">' +
+          langSwitch(p).replace('class="lang"', 'class="lang lang--drawer"') +
+        '</div>' +
+        '<nav class="drawer-nav"><ul>' +
+          NAV.concat(UTIL).map(n => '<li><a href="' + p + n.href + '">' + esc(t(n.key)) + '</a></li>').join('') +
+        '</ul></nav>' +
+        '<a class="btn btn--primary drawer-cta" href="' + p + 'partner/become-a-partner.html">' +
+          esc(t('cta.startCollaboration')) + '</a>' +
       '</div>' +
-      '<nav class="drawer-nav"><ul>' +
-        NAV.concat(UTIL).map(n => '<li><a href="' + p + n.href + '">' + esc(t(n.key)) + '</a></li>').join('') +
-      '</ul></nav>' +
-      '<a class="btn btn--primary drawer-cta" href="' + p + 'partner/become-a-partner.html">' +
-        esc(t('cta.startCollaboration')) + '</a>' +
     '</div>';
   }
 

@@ -120,6 +120,11 @@
 
         var kind = form.getAttribute('data-form') || 'partnership';
         var endpoint = FM.config.forms.endpoint;
+        var route = (FM.config.forms.routeByKind || {})[kind] || 'enquiry';
+        var addr = FM.config.forms.to ||
+          FM.config.contact[route] ||
+          FM.config.contact.enquiry ||
+          FM.config.contact.general || '';
 
         if (!endpoint) {
           /* No endpoint. Do not look like it worked: say so plainly, and hand
@@ -128,8 +133,6 @@
             status.className = 'form-status is-err';
             status.textContent = '';
             status.appendChild(doc.createTextNode(pick(FM.config.forms.fallbackNote) + ' '));
-            var route = (FM.config.forms.routeByKind || {})[kind] || 'general';
-            var addr = FM.config.contact[route] || FM.config.contact.general || '';
             if (addr) {
               var a = doc.createElement('a');
               a.href = buildMailto(form, addr, kind, status);
@@ -144,17 +147,69 @@
         }
 
         var data = new root.FormData(form);
+        /* FormSubmit / Web3Forms helpers so the inbox subject is searchable. */
+        if (!data.get('_subject')) {
+          data.append('_subject', (FM.config.forms.subjectPrefix || 'CARACTER enquiry') + ' — ' + kind);
+        }
+        if (!data.get('_template')) data.append('_template', 'table');
+        if (!data.get('_captcha')) data.append('_captcha', 'false');
+        if (!data.get('_replyto') && data.get('email')) data.append('_replyto', data.get('email'));
+        if (FM.config.forms.accessKey && !data.get('access_key')) {
+          data.append('access_key', FM.config.forms.accessKey);
+        }
+        if (status) {
+          status.className = 'form-status';
+          status.textContent = t('form.sending') || 'Sending…';
+        }
+        var submitBtn = form.querySelector('[type="submit"]');
+        if (submitBtn) submitBtn.disabled = true;
+
         root.fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
           .then(function (r) {
+            return r.json().then(function (body) {
+              return { ok: r.ok, status: r.status, body: body || {} };
+            }).catch(function () {
+              return { ok: r.ok, status: r.status, body: {} };
+            });
+          })
+          .then(function (res) {
+            if (submitBtn) submitBtn.disabled = false;
+            var success = res.ok || res.body.success === true || res.body.ok === true;
             if (status) {
-              status.className = 'form-status ' + (r.ok ? 'is-ok' : 'is-err');
-              status.textContent = t(r.ok ? 'form.success' : 'form.error');
+              status.className = 'form-status ' + (success ? 'is-ok' : 'is-err');
+              if (success) {
+                status.textContent = t('form.success');
+                form.reset();
+                track('form_submit', { label: kind });
+              } else {
+                /* FormSubmit activation / provider errors: fall back to mailto. */
+                status.textContent = '';
+                status.appendChild(doc.createTextNode(pick(FM.config.forms.fallbackNote) + ' '));
+                if (addr) {
+                  var a2 = doc.createElement('a');
+                  a2.href = buildMailto(form, addr, kind, status);
+                  a2.textContent = addr;
+                  a2.title = t('form.mailtoCta');
+                  status.appendChild(a2);
+                }
+                track('form_submit', { label: kind + '_fail' });
+              }
             }
-            if (r.ok) form.reset();
-            track('form_submit', { label: kind });
           })
           .catch(function () {
-            if (status) { status.className = 'form-status is-err'; status.textContent = t('form.error'); }
+            if (submitBtn) submitBtn.disabled = false;
+            if (status) {
+              status.className = 'form-status is-err';
+              status.textContent = '';
+              status.appendChild(doc.createTextNode(pick(FM.config.forms.fallbackNote) + ' '));
+              if (addr) {
+                var a3 = doc.createElement('a');
+                a3.href = buildMailto(form, addr, kind, status);
+                a3.textContent = addr;
+                status.appendChild(a3);
+              }
+            }
+            track('form_submit', { label: kind + '_error' });
           });
       });
     });

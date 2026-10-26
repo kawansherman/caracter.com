@@ -108,25 +108,58 @@ function shell(meta, body) {
      otherwise "About CARACTER" became "About CARACTER — CARACTER". */
   const title = /CARACTER/i.test(meta.title) ? meta.title : meta.title + ' — CARACTER';
 
+  const waDigits = String((CFG.contact && CFG.contact.whatsapp) || '').replace(/\D/g, '');
+  const enquiryEmail = (CFG.contact && (CFG.contact.enquiry || CFG.contact.general)) || '';
   const schema = {
     '@context': 'https://schema.org',
     '@graph': [
       {
         '@type': 'Organization', '@id': CFG.url + '/#org', name: 'CARACTER',
-        alternateName: ['CARACTER.com', 'catracter.com'],
+        alternateName: ['CARACTER.com', 'catracter.com', 'CATRACTER'],
         url: CFG.url, slogan: en(CFG.tagline), description: en(CFG.positioning),
-        email: CFG.contact.general,
-        contactPoint: [{
-          '@type': 'ContactPoint', contactType: 'sales', email: CFG.contact.general,
-          availableLanguage: LOCALES
-        }]
+        email: enquiryEmail,
+        telephone: waDigits ? ('+' + waDigits) : undefined,
+        contactPoint: [
+          {
+            '@type': 'ContactPoint',
+            contactType: 'sales',
+            email: enquiryEmail,
+            telephone: waDigits ? ('+' + waDigits) : undefined,
+            availableLanguage: LOCALES,
+            areaServed: 'Worldwide'
+          },
+          {
+            '@type': 'ContactPoint',
+            contactType: 'customer support',
+            email: enquiryEmail,
+            availableLanguage: LOCALES,
+            url: CFG.url + '/contact.html'
+          }
+        ].filter(Boolean),
+        sameAs: [
+          CFG.url,
+          'https://commercialisation.ai'
+        ]
       },
       {
         '@type': 'WebSite', '@id': CFG.url + '/#website', url: CFG.url,
-        name: 'CARACTER', inLanguage: LOCALES, publisher: { '@id': CFG.url + '/#org' }
+        name: 'CARACTER', alternateName: 'catracter.com',
+        inLanguage: LOCALES, publisher: { '@id': CFG.url + '/#org' },
+        potentialAction: {
+          '@type': 'CommunicateAction',
+          target: CFG.url + '/contact.html',
+          name: 'Send an enquiry'
+        }
       }
     ]
   };
+  /* Drop undefined telephone fields for clean JSON-LD. */
+  schema['@graph'].forEach((node) => {
+    if (node.telephone === undefined) delete node.telephone;
+    if (Array.isArray(node.contactPoint)) {
+      node.contactPoint.forEach((cp) => { if (cp.telephone === undefined) delete cp.telephone; });
+    }
+  });
   if (meta.jsonld) schema['@graph'] = schema['@graph'].concat(meta.jsonld);
 
   const hreflang = LOCALES.map(l =>
@@ -581,12 +614,19 @@ function build() {
   const pages = written.filter(w => w.file.endsWith('.html') && w.file !== '404.html');
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${pages.map(w => `  <url>
-    <loc>${CFG.url}/${w.file === 'index.html' ? '' : w.file}</loc>
+${pages.map(w => {
+    const isHome = w.file === 'index.html';
+    const isContact = w.file === 'contact.html';
+    const isKey = /^(explore\/index|studio\/index|solutions\/index|play|partner\/become-a-partner)\.html$/.test(w.file);
+    const pri = isHome ? '1.0' : isContact ? '0.9' : isKey ? '0.8' : '0.6';
+    const freq = (isHome || isContact) ? 'weekly' : 'monthly';
+    return `  <url>
+    <loc>${CFG.url}/${isHome ? '' : w.file}</loc>
     <lastmod>${builtOn}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>${w.file === 'index.html' ? '1.0' : '0.7'}</priority>
-  </url>`).join('\n')}
+    <changefreq>${freq}</changefreq>
+    <priority>${pri}</priority>
+  </url>`;
+  }).join('\n')}
 </urlset>
 `;
   written.push({ file: 'sitemap.xml', text: sitemap });
@@ -643,7 +683,7 @@ Default language: English (${CFG.defaultLocale || 'en'}). Also: ${LOCALES.filter
 - Six groups connected: ${D.groups.map(g => en(g.name)).join(', ')}.
 - Demonstration collection on site: ${D.collections.map(c => en(c.name) + ' (' + en(c.status) + ')').join(', ')} — rights status: demonstration only, not an offer of a licence.
 - Languages: ${LOCALES.join(', ')}. Built into the page; Google Translate is optional and loads only on request.
-- Contact: ${CFG.contact.general}. WhatsApp / WeChat desks are published on the site for partnership enquiries.
+- Contact email (enquiry inbox): ${CFG.contact.enquiry || CFG.contact.general}. WhatsApp: ${(CFG.contact.whatsappDisplay || CFG.contact.whatsapp || '').toString()} (HK). WeChat desk published on-site. Contact page: ${CFG.url}/contact.html
 - Play / games lobby (FURI MONSTER demos): ${CFG.url}/play.html
 - Status: public marketing site live on ${CFG.domain}. Trade mark / brand-domain (caracter.com) ownership may still be separate from the live host.
 

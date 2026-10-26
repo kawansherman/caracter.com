@@ -1,11 +1,22 @@
-﻿<!--FM
+<!--FM
 {
   "file": "contact.html",
   "page": "contact",
   "root": "",
   "title": "Contact",
-  "desc": "Reach the right desk: licensing, partnerships, suppliers, press, or a general enquiry. Each route goes to a different address.",
-  "canonical": "contact.html"
+  "desc": "Send a CARACTER enquiry by form, email commercialisation.ai@gmail.com, or reach us on WhatsApp 9739 8018 / WeChat. Licensing, partnership, supplier and press desks.",
+  "canonical": "contact.html",
+  "jsonld": [
+    {
+      "@type": "ContactPage",
+      "@id": "https://catracter.com/contact.html#contact",
+      "url": "https://catracter.com/contact.html",
+      "name": "Contact CARACTER",
+      "description": "Enquiry form and contact channels for CARACTER licensing, partnerships, suppliers and press.",
+      "isPartOf": { "@id": "https://catracter.com/#website" },
+      "about": { "@id": "https://catracter.com/#org" }
+    }
+  ]
 }
 -->
 <main id="main">
@@ -13,31 +24,53 @@
     <div class="wrap">
       <p class="crumbs"><a href="{{ROOT}}index.html">{{T:Home|首頁|首页|หน้าแรก|ホーム}}</a><span class="crumb-sep">/</span><span>{{T:Contact|聯絡|联络|ติดต่อ|お問い合わせ}}</span></p>
       <h1 class="display balance">{{T:Right desk, first time|一次就到對的桌子|一次就到对的桌子|ถูกโต๊ะตั้งแต่ครั้งแรก|最初から正しい窓口へ}}</h1>
-      <p class="lede" style="margin-top:20px">{{T:Five routes, five addresses. Using the right one is the fastest way to a reply.|五條途徑、五個地址。用對的那個，是得到回覆最快的方法。|五条途径、五个地址。用对的那个，是得到回复最快的方法。}}</p>
+      <p class="lede" style="margin-top:20px">{{T:Send an enquiry below — it goes to our live inbox. Or use email, WhatsApp or WeChat.|在下方送出查詢 —— 會送到我們現用收件匣。也可電郵、WhatsApp 或 WeChat。|在下方送出查询 —— 会送到我们现用收件箱。也可电邮、WhatsApp 或 WeChat。|ส่งคำถามด้านล่าง — ไปยังกล่องจดหมายจริง หรือใช้อีเมล WhatsApp หรือ WeChat|下のフォームからお問い合わせください。メール・WhatsApp・WeChatも利用できます。}}</p>
     </div>
   </section>
   <section class="section section--tight">
     <div class="wrap">
-      <div class="tbl-wrap"><table class="tbl" style="min-width:520px">
-        <thead><tr><th>{{T:Enquiry|查詢|查询|การสอบถาม|お問い合わせ}}</th><th>{{T:Address|地址|地址|ที่อยู่|アドレス}}</th></tr></thead>
-        <tbody>
-          <tr><td>{{T:Licensing|授權|授权|การให้สิทธิ์|許諾}}</td><td><a href="mailto:licensing@caracter.com">licensing@caracter.com</a></td></tr>
-          <tr><td>{{T:Partnerships|合作|合作|ความร่วมมือ|提携}}</td><td><a href="mailto:partners@caracter.com">partners@caracter.com</a></td></tr>
-          <tr><td>{{T:Suppliers|供應商|供应商|ผู้ผลิต|サプライヤー}}</td><td><a href="mailto:suppliers@caracter.com">suppliers@caracter.com</a></td></tr>
-          <tr><td>{{T:Press|媒體|媒体|สื่อ|プレス}}</td><td><a href="mailto:press@caracter.com">press@caracter.com</a></td></tr>
-          <tr><td>{{T:Anything else|其他|其他|อื่น ๆ|その他}}</td><td><a href="mailto:hello@caracter.com">hello@caracter.com</a></td></tr>
-        </tbody>
-      </table></div>
-      <div style="margin-top:34px">
+      <div class="contact-channels" aria-label="Contact channels">
+        <a class="contact-card" href="mailto:commercialisation.ai@gmail.com">
+          <span class="contact-card-k">{{T:Email|電郵|电邮|อีเมล|メール}}</span>
+          <span class="contact-card-v">commercialisation.ai@gmail.com</span>
+          <span class="contact-card-h">{{T:Primary enquiry inbox|主要查詢收件匣|主要查询收件箱|กล่องสอบถามหลัก|お問い合わせ用受信箱}}</span>
+        </a>
+        <a class="contact-card" href="https://wa.me/85297398018?text=Hi%2C%20I%20would%20like%20to%20enquire%20about%20CARACTER." target="_blank" rel="noopener noreferrer">
+          <span class="contact-card-k">WhatsApp</span>
+          <span class="contact-card-v">9739 8018</span>
+          <span class="contact-card-h">{{T:Hong Kong · tap to chat|香港 · 點擊對話|香港 · 点击对话|ฮ่องกง · แตะเพื่อแชท|香港 · タップでチャット}}</span>
+        </a>
+        <div class="contact-card contact-card--static">
+          <span class="contact-card-k">WeChat</span>
+          <span class="contact-card-v">港樓金融財商</span>
+          <span class="contact-card-h">{{T:Scan the QR from the WeChat button|用左下角 WeChat 掣掃 QR|用左下角 WeChat 按钮扫 QR|สแกน QR จากปุ่ม WeChat|左下の WeChat ボタンでQRをスキャン}}</span>
+        </div>
+      </div>
+
+      <div class="contact-form-block">
+        <h2 class="h3">{{T:Enquiry form|查詢表單|查询表单|แบบฟอร์มสอบถาม|お問い合わせフォーム}}</h2>
+        <p class="muted" style="margin:8px 0 18px">{{T:Name, email and message required. Optional company. Delivered to commercialisation.ai@gmail.com.|姓名、電郵與訊息為必填；公司選填。送到 commercialisation.ai@gmail.com。|姓名、电邮与信息为必填；公司选填。送到 commercialisation.ai@gmail.com。|ต้องกรอกชื่อ อีเมล และข้อความ บริษัทไม่บังคับ ส่งไปที่ commercialisation.ai@gmail.com|氏名・メール・メッセージ必須。会社は任意。commercialisation.ai@gmail.com に届きます。}}</p>
 <form class="form" data-form="partnership" novalidate>
-<div class="form-row"><div class="field"><label for="f-name">{{T:Name|姓名|姓名}}</label><input id="f-name" type="text" name="name" required></div><div class="field"><label for="f-email">{{T:Email|電子郵件|电子邮件}}</label><input id="f-email" type="email" name="email" required></div></div>
-<div class="form-row"><div class="field"><label for="f-company">{{T:Company|公司|公司}}</label><input id="f-company" type="text" name="company"></div><div class="field"><label for="f-type">{{T:Enquiry type|查詢類型|查询类型}}</label><select id="f-type" name="type" required><option value="—">—</option><option value="Licensing">Licensing</option><option value="Partnership">Partnership</option><option value="Supplier">Supplier</option><option value="Press">Press</option><option value="Other">Other</option></select></div></div>
-<div class="field"><label for="f-message">{{T:Message|訊息|信息}}</label><textarea id="f-message" name="message" required></textarea></div>
-<div class="field field-consent"><input type="checkbox" id="f-partnership-consent" name="consent" required><label for="f-partnership-consent">{{T:I agree that CARACTER may contact me about this enquiry.|我同意 CARACTER 就此次查詢與我聯絡。|我同意 CARACTER 就此次查询与我联络。}}</label></div>
+<div class="form-row"><div class="field"><label for="f-name">{{T:Name|姓名|姓名|ชื่อ|氏名}}</label><input id="f-name" type="text" name="name" autocomplete="name" required></div><div class="field"><label for="f-email">{{T:Email|電子郵件|电子邮件|อีเมล|メール}}</label><input id="f-email" type="email" name="email" autocomplete="email" inputmode="email" required></div></div>
+<div class="form-row"><div class="field"><label for="f-company">{{T:Company|公司|公司|บริษัท|会社}}</label><input id="f-company" type="text" name="company" autocomplete="organization"></div><div class="field"><label for="f-type">{{T:Enquiry type|查詢類型|查询类型|ประเภทคำถาม|問い合わせ種別}}</label><select id="f-type" name="type" required><option value="">—</option><option value="Licensing">Licensing</option><option value="Partnership">Partnership</option><option value="Supplier">Supplier</option><option value="Press">Press</option><option value="Other">Other</option></select></div></div>
+<div class="field"><label for="f-message">{{T:Message|訊息|信息|ข้อความ|メッセージ}}</label><textarea id="f-message" name="message" required rows="5"></textarea></div>
+<div class="field field-consent"><input type="checkbox" id="f-partnership-consent" name="consent" required><label for="f-partnership-consent">{{T:I agree that CARACTER may contact me about this enquiry.|我同意 CARACTER 就此次查詢與我聯絡。|我同意 CARACTER 就此次查询与我联络。|ข้าพเจ้ายินยอมให้ CARACTER ติดต่อกลับเกี่ยวกับคำถามนี้|本件についてCARACTERが連絡することに同意します。}}</label></div>
 <div class="form-status" data-status role="status" aria-live="polite"></div>
-<button class="btn btn--primary" type="submit">{{T:Send|送出|发送}}</button>
-<p class="form-note">{{T:We reply within three working days.|我們在三個工作日內回覆。|我们在三个工作日内回复。}}</p>
+<button class="btn btn--primary" type="submit">{{T:Send enquiry|送出查詢|发送查询|ส่งคำถาม|問い合わせを送る}}</button>
+<p class="form-note">{{T:We reply within three working days. Submitting this form does not create a licence or a confidentiality obligation.|我們在三個工作日內回覆。提交此表單不構成授權，也不構成保密義務。|我们在三个工作日内回复。提交此表单不构成授权，也不构成保密义务。|เราตอบกลับภายในสามวันทำการ การส่งแบบฟอร์มนี้ไม่ถือเป็นการอนุญาตสิทธิ์หรือภาระรักษาความลับ|3営業日以内に返信します。送信は許諾や秘密保持義務にはなりません。}}</p>
 </form>
+      </div>
+
+      <div class="contact-desks" style="margin-top:40px">
+        <h2 class="h3">{{T:Desk labels|窗口標示|窗口标示|ป้ายโต๊ะ|窓口ラベル}}</h2>
+        <p class="muted" style="margin:8px 0 14px">{{T:Use the form above for the fastest reply. Desk names below are for subject lines.|要最快回覆請用上方表單。下列窗口名稱可用於電郵主旨。|要最快回复请用上方表单。下列窗口名称可用于邮件主题。|ตอบกลับเร็วที่สุดใช้แบบฟอร์มด้านบน ชื่อโต๊ะด้านล่างใช้เป็นหัวเรื่องอีเมลได้|最速返信は上のフォームを。下記窓口名はメール件名用。}}</p>
+        <ul class="contact-desk-list">
+          <li><span>{{T:Licensing|授權|授权|การให้สิทธิ์|許諾}}</span><code>Licensing</code></li>
+          <li><span>{{T:Partnerships|合作|合作|ความร่วมมือ|提携}}</span><code>Partnership</code></li>
+          <li><span>{{T:Suppliers|供應商|供应商|ผู้ผลิต|サプライヤー}}</span><code>Supplier</code></li>
+          <li><span>{{T:Press|媒體|媒体|สื่อ|プレス}}</span><code>Press</code></li>
+          <li><span>{{T:Anything else|其他|其他|อื่น ๆ|その他}}</span><code>Other</code></li>
+        </ul>
       </div>
     </div>
   </section>

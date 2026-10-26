@@ -189,37 +189,45 @@ code { font-family: var(--font-mono); font-size: .9em; color: var(--blue); }
   border-bottom: 1px solid var(--line-2);
 }
 .header-in {
-  display: flex; align-items: center; gap: 12px;
+  display: flex; align-items: center; gap: 14px;
   min-height: 64px;
   min-width: 0;
   width: 100%;
 }
-.brand { display: inline-flex; align-items: center; gap: 10px; flex: 0 1 auto; min-width: 0; max-width: min(52vw, 220px); }
+/* Logo image only — never shrink under the nav (that caused CATRACTER∩EXPLORE overlap). */
+.brand {
+  display: inline-flex; align-items: center;
+  flex: 0 0 auto;
+  position: relative; z-index: 2;
+  max-width: 168px;
+  overflow: hidden; /* clip any asset padding; never paint over nav */
+  margin-right: 4px;
+}
 .brand-logo {
-  display: block; height: 28px; width: auto; max-width: 100%;
+  display: block; height: 26px; width: auto; max-width: 160px;
   object-fit: contain; object-position: left center;
+  /* Prefer retina wordmark when available */
 }
 .mark { width: 30px; height: 30px; flex: 0 0 auto; }
 .mark--img { display: block; width: 30px; height: 30px; object-fit: contain; }
-.brand-t {
-  font-family: var(--font-display); font-weight: 800;
-  font-size: 17px; letter-spacing: .16em; color: var(--ink-950);
-  white-space: nowrap;
-}
+.brand-t { display: none !important; } /* legacy text mark — do not show beside logo */
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 .fbrand .brand-logo { height: 34px; max-width: 200px; }
-.nav { min-width: 0; flex: 1 1 auto; }
+.nav {
+  min-width: 0; flex: 1 1 auto;
+  overflow: hidden; /* clip links rather than bleed under logo/tools */
+}
 .nav ul {
-  display: flex; align-items: center; justify-content: center;
-  gap: 2px; flex-wrap: nowrap;
+  display: flex; align-items: center; justify-content: flex-start;
+  gap: 0; flex-wrap: nowrap;
   padding: 0; border: 0; border-radius: 0; background: transparent;
 }
 .nav a {
-  display: block; padding: 10px 12px; border-radius: 0;
-  font-size: 12px; font-weight: 650; letter-spacing: .08em;
+  display: block; padding: 10px 10px; border-radius: 0;
+  font-size: 11.5px; font-weight: 650; letter-spacing: .06em;
   text-transform: uppercase; color: var(--ink-800); white-space: nowrap;
   transition: color .25s var(--ease);
 }
@@ -228,19 +236,25 @@ code { font-family: var(--font-mono); font-size: .9em; color: var(--blue); }
   color: var(--ink-950);
   box-shadow: inset 0 -2px 0 var(--accent);
 }
-.tools { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; margin-left: auto; min-width: 0; }
+.tools {
+  display: flex; align-items: center; gap: 8px;
+  flex: 0 0 auto; margin-left: auto; min-width: 0;
+}
+.header-cta { max-width: 160px; }
 
-.lang { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--paper); }
+.lang { display: inline-flex; gap: 1px; padding: 2px; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--paper); }
 .lang button {
   background: none; border: 0; cursor: pointer;
-  padding: 5px 9px; border-radius: var(--radius-pill);
-  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .06em;
+  padding: 4px 7px; border-radius: var(--radius-pill);
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .04em;
   color: var(--muted); transition: background .2s var(--ease), color .2s var(--ease);
 }
 .lang button:hover { color: var(--ink-900); }
 .lang button[aria-pressed="true"] { background: var(--ink-950); color: #fff; font-weight: 700; }
+.lang--header { flex: 0 0 auto; }
 .lang--footer { border-color: var(--line); background: transparent; }
-.menu-btn { display: none; }
+/* Desktop keeps MENU for Cases / Play / util pages so the bar stays calm */
+.menu-btn { display: inline-flex; }
 
 /* drawer — full-screen panel above floats; scrollable; safe-area aware */
 .drawer-host { position: relative; z-index: 200; }
@@ -584,22 +598,59 @@ html.is-locked .st-chat { display: none !important; visibility: hidden; }
 .reveal.is-in { opacity: 1; transform: none; }
 
 /* ---------- 17. responsive ---------------------------------------------- */
-@media (max-width: 1080px) {
+/* Wide desktop: full primary nav; Translate is icon-only to save width */
+@media (min-width: 1281px) {
+  .header-in { gap: 16px; }
+  .nav { padding-right: 8px; }
+  .st-translate--header .st-trans-label {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+  .st-translate--header .st-trans-btn {
+    width: 34px; padding: 0; justify-content: center;
+  }
+}
+
+/* Mid-wide: drop Supply / How; langs move into MENU to free the tools row */
+@media (max-width: 1280px) {
+  .nav-item--mid { display: none; }
+  .lang--header,
+  .site-header .tools > .lang { display: none !important; }
+  .nav a { padding: 10px 9px; font-size: 11px; letter-spacing: .05em; }
+  .st-translate--header .st-trans-label {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+  .st-translate--header .st-trans-btn {
+    width: 34px; padding: 0; justify-content: center;
+  }
+}
+
+/* Compact / tablet / phone: logo + search + MENU only */
+@media (max-width: 980px) {
   .nav { display: none; }
   .menu-btn { display: inline-flex; }
   .hide-sm { display: none; }
-  /* Keep header to logo + search + MENU — langs/translate live in the drawer */
   .lang--header,
   .site-header .tools > .lang,
   .st-translate--header { display: none !important; }
   .site-header { overflow: hidden; }
   .site-header .wrap { overflow: hidden; }
-  .header-in { gap: 10px; min-height: 58px; }
-  .brand-t { font-size: 15px; letter-spacing: .12em; }
-  .brand-logo { height: 24px; }
-  .brand { max-width: min(58vw, 180px); }
+  .header-in { gap: 10px; min-height: 56px; }
+  .brand-logo { height: 22px; max-width: min(52vw, 150px); }
+  .brand { max-width: min(58vw, 160px); }
   .tools { gap: 6px; }
   .drawer-panel { width: 100%; border-radius: 0; box-shadow: none; }
+}
+
+/* Phone: tighter logo + tap targets */
+@media (max-width: 430px) {
+  .header-in { gap: 8px; min-height: 52px; }
+  .brand { max-width: min(62vw, 148px); }
+  .brand-logo { height: 20px; max-width: min(58vw, 140px); }
+  .tools { gap: 5px; }
+  .menu-btn { padding: 9px 12px; }
+  .st-icon { width: 36px; height: 36px; }
 }
 @media (min-width: 620px) {
   .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1162,4 +1213,85 @@ html.ca-wechat-open { overflow: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   .portal:hover { transform: none; }
+}
+
+
+/* ---------- Contact channels / form (mobile-first) --------------------- */
+.contact-channels {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+  margin: 0 0 28px;
+}
+.contact-card {
+  display: grid;
+  gap: 4px;
+  padding: 16px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+  transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+}
+a.contact-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(15,18,28,.06);
+}
+.contact-card-k {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.contact-card-v {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink-950);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+.contact-card-h {
+  font-size: 12.5px;
+  color: var(--muted-2);
+  line-height: 1.45;
+}
+.contact-form-block {
+  padding: 18px 0 8px;
+  border-top: 1px solid var(--line);
+}
+.contact-form-block .form { max-width: 640px; }
+.contact-desk-list {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; gap: 8px;
+}
+.contact-desk-list li {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 8px 12px; padding: 12px 14px;
+  border: 1px solid var(--line); border-radius: 12px;
+  font-size: 14px;
+}
+.contact-desk-list code {
+  font-family: var(--font-mono); font-size: 11.5px;
+  padding: 3px 8px; border-radius: 999px; background: var(--wash, #f4f5f8);
+  color: var(--ink-800);
+}
+.fbrand-chats {
+  display: flex; flex-wrap: wrap; gap: 6px 8px;
+  margin-top: 10px; font-size: 12px; color: var(--muted);
+  align-items: center;
+}
+.fbrand-chat { color: var(--ink-800); text-decoration: none; }
+a.fbrand-chat:hover { color: var(--accent); }
+.fbrand-sep { opacity: .45; }
+@media (min-width: 720px) {
+  .contact-channels { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 719px) {
+  .contact-form-block .form-row { grid-template-columns: 1fr; }
+  .contact-card { padding: 14px; }
+  .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tbl { min-width: 0 !important; width: 100%; }
 }

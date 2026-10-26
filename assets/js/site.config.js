@@ -45,11 +45,14 @@
     /* Contact routing. Each address owns one desk; the forms route by kind so
      * an enquiry never lands in the wrong inbox. */
     contact: {
-      general: 'hello@caracter.com',
-      licensing: 'licensing@caracter.com',
-      partners: 'partners@caracter.com',
-      suppliers: 'suppliers@caracter.com',
-      press: 'press@caracter.com',
+      /* Primary enquiry inbox (form + public contact). Desk aliases below remain
+       * for routing labels; live submissions go to enquiry via forms.endpoint. */
+      general: 'commercialisation.ai@gmail.com',
+      enquiry: 'commercialisation.ai@gmail.com',
+      licensing: 'commercialisation.ai@gmail.com',
+      partners: 'commercialisation.ai@gmail.com',
+      suppliers: 'commercialisation.ai@gmail.com',
+      press: 'commercialisation.ai@gmail.com',
       /* Chat channels — same desk as commercialisation.ai / 港樓金融財商. */
       whatsapp: '85297398018',
       whatsappDisplay: '9739 8018',
@@ -72,25 +75,27 @@
     },
 
     forms: {
-      /* Empty until a form service is configured. The fallback builds a
-       * pre-filled mailto so the visitor's typing is not thrown away — the
-       * pattern built and tested on the FURI MONSTER site. */
-      endpoint: '',
+      /* FormSubmit AJAX → commercialisation.ai@gmail.com. First submission may
+       * require one-time inbox activation; after that submissions deliver. */
+      endpoint: 'https://formsubmit.co/ajax/commercialisation.ai@gmail.com',
+      provider: 'formsubmit',
+      to: 'commercialisation.ai@gmail.com',
+      subjectPrefix: 'CARACTER enquiry',
       routeByKind: {
-        partnership: 'partners',
-        ip: 'licensing',
-        creator: 'partners',
-        supplier: 'suppliers',
-        rfq: 'suppliers',
-        brief: 'partners',
-        press: 'press'
+        partnership: 'enquiry',
+        ip: 'enquiry',
+        creator: 'enquiry',
+        supplier: 'enquiry',
+        rfq: 'enquiry',
+        brief: 'enquiry',
+        press: 'enquiry'
       },
       fallbackNote: {
-        en: 'This form is not connected to our inbox yet. Send it as an email instead and we will reply:',
-        'zh-Hant': '此表單尚未接上收件匣。請改用電郵送出，我們會回覆你：',
-        'zh-Hans': '此表单尚未接上收件箱。请改用邮件送出，我们会回复你：',
-        th: 'แบบฟอร์มนี้ยังไม่ได้เชื่อมต่อกับกล่องจดหมายของเรา กรุณาส่งเป็นอีเมลแทน แล้วเราจะตอบกลับ:',
-        ja: 'このフォームはまだ受信箱に接続されていません。代わりにメールでお送りください。返信します：'
+        en: 'This form could not reach our inbox just now. Send it as an email instead and we will reply:',
+        'zh-Hant': '此表單暫時未能送到收件匣。請改用電郵送出，我們會回覆你：',
+        'zh-Hans': '此表单暂时未能送到收件箱。请改用邮件送出，我们会回复你：',
+        th: 'แบบฟอร์มนี้ส่งไปยังกล่องจดหมายไม่สำเร็จ กรุณาส่งเป็นอีเมลแทน แล้วเราจะตอบกลับ:',
+        ja: 'フォームを受信箱に送れませんでした。代わりにメールでお送りください。返信します：'
       }
     },
 

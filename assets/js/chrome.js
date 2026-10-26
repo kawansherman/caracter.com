@@ -18,16 +18,21 @@
     return attr || '';
   }
 
-  /* Primary navigation. Every href here must exist — tools/check.js verifies it. */
-  var NAV = [
-    { page: 'explore', href: 'explore/index.html', key: 'nav.explore' },
-    { page: 'studio', href: 'studio/index.html', key: 'nav.studio' },
-    { page: 'solutions', href: 'solutions/index.html', key: 'nav.solutions' },
-    { page: 'supply', href: 'supply-chain/index.html', key: 'nav.supply' },
-    { page: 'how', href: 'how-it-works.html', key: 'nav.how' },
+  /* Primary navigation. Every href here must exist — tools/check.js verifies it.
+   * NAV_BAR = shown in the desktop header; NAV_MORE = drawer/MENU only (keeps the
+   * top bar from colliding with langs / Translate / CTA). */
+  var NAV_BAR = [
+    { page: 'explore', href: 'explore/index.html', key: 'nav.explore', tier: 'core' },
+    { page: 'studio', href: 'studio/index.html', key: 'nav.studio', tier: 'core' },
+    { page: 'solutions', href: 'solutions/index.html', key: 'nav.solutions', tier: 'core' },
+    { page: 'supply', href: 'supply-chain/index.html', key: 'nav.supply', tier: 'mid' },
+    { page: 'how', href: 'how-it-works.html', key: 'nav.how', tier: 'mid' }
+  ];
+  var NAV_MORE = [
     { page: 'cases', href: 'cases/index.html', key: 'nav.cases' },
     { page: 'play', href: 'play.html', key: 'nav.play' }
   ];
+  var NAV = NAV_BAR.concat(NAV_MORE);
   var UTIL = [
     { page: 'why', href: 'why-caracter.html', key: 'nav.why' },
     { page: 'about', href: 'about.html', key: 'nav.about' },
@@ -38,11 +43,14 @@
 
   function brandMark(kind) {
     var p = prefix();
-    /* CATRACTER wordmark asset (logo file spelling); product copy stays CARACTER. */
+    /* CATRACTER wordmark asset (logo file spelling); product copy stays CARACTER.
+     * Image only — never pair with .brand-t text (causes ghost overlap in header). */
     if (kind === 'wordmark') {
-      return '<img class="brand-logo" src="' + p + 'assets/img/brand/catracter-logo.png" width="168" height="33" alt="CATRACTER">';
+      return '<img class="brand-logo" src="' + p + 'assets/img/brand/catracter-logo.png"' +
+        ' srcset="' + p + 'assets/img/brand/catracter-logo.png 1x, ' + p + 'assets/img/brand/catracter-logo@2x.png 2x"' +
+        ' width="160" height="30" alt="" decoding="async">';
     }
-    return '<img class="mark mark--img" src="' + p + 'assets/img/brand/catracter-icon.png" width="32" height="32" alt="">';
+    return '<img class="mark mark--img" src="' + p + 'assets/img/brand/catracter-icon.png" width="32" height="32" alt="" decoding="async">';
   }
 
   function langSwitch(pfx) {
@@ -59,16 +67,17 @@
     var p = prefix();
     var page = doc.body.getAttribute('data-page') || '';
     return '<div class="wrap header-in">' +
-      '<a class="brand" href="' + p + 'index.html">' + brandMark('wordmark') + '</a>' +
+      '<a class="brand" href="' + p + 'index.html" aria-label="CATRACTER">' + brandMark('wordmark') + '</a>' +
       '<nav class="nav" aria-label="Primary"><ul>' +
-        NAV.map(n => '<li><a href="' + p + n.href + '"' +
+        NAV_BAR.map(n => '<li class="nav-item nav-item--' + (n.tier || 'core') + '"><a href="' + p + n.href + '"' +
           (n.page === page ? ' aria-current="page"' : '') + '>' + esc(t(n.key)) + '</a></li>').join('') +
       '</ul></nav>' +
       '<div class="tools">' +
         langSwitch(p).replace('class="lang"', 'class="lang lang--header"') +
-        '<a class="btn btn--sm btn--primary hide-sm" href="' + p + 'partner/become-a-partner.html">' +
-          esc(t('cta.startCollaboration')) + '</a>' +
-        '<button class="btn btn--sm menu-btn" type="button" aria-expanded="false" aria-controls="ca-menu">' +
+        '<a class="btn btn--sm btn--primary header-cta hide-sm" href="' + p + 'partner/become-a-partner.html">' +
+          esc(t('cta.collaborate')) + '</a>' +
+        '<button class="btn btn--sm menu-btn" type="button" aria-expanded="false" aria-controls="ca-menu" aria-label="' +
+          esc(t('a11y.menu')) + '">' +
           esc(t('nav.menu')) + '</button>' +
       '</div>' +
     '</div>';
@@ -92,6 +101,26 @@
           esc(t('cta.startCollaboration')) + '</a>' +
       '</div>' +
     '</div>';
+  }
+
+  function contactLineHtml(p) {
+    var c = FM.config.contact || {};
+    var bits = [];
+    if (c.whatsappDisplay || c.whatsapp) {
+      var wa = String(c.whatsapp || '').replace(/\D/g, '');
+      var pre = '';
+      try {
+        pre = encodeURIComponent((c.whatsappPrefill && FM.i18n) ? FM.i18n.pick(c.whatsappPrefill) : (c.whatsappPrefill && c.whatsappPrefill.en) || '');
+      } catch (e) { pre = ''; }
+      bits.push('<a class="fbrand-chat" href="https://wa.me/' + esc(wa) + (pre ? '?text=' + pre : '') +
+        '" target="_blank" rel="noopener noreferrer">WhatsApp ' + esc(c.whatsappDisplay || c.whatsapp) + '</a>');
+    }
+    if (c.wechatId || c.wechatName) {
+      var wn = c.wechatName ? (FM.i18n ? FM.i18n.pick(c.wechatName) : (c.wechatName.en || c.wechatId)) : c.wechatId;
+      bits.push('<span class="fbrand-chat">WeChat ' + esc(wn) + '</span>');
+    }
+    bits.push('<a class="fbrand-chat" href="' + p + 'contact.html">' + esc(t('nav.contact')) + '</a>');
+    return bits.length ? '<p class="fbrand-chats">' + bits.join('<span class="fbrand-sep">·</span>') + '</p>' : '';
   }
 
   function footerHtml() {
@@ -119,6 +148,7 @@
           '<p class="fbrand-s">' + esc(FM.i18n ? FM.i18n.pick(FM.config.tagline) : '') + '</p>' +
           '<p class="fbrand-c"><a href="mailto:' + esc(FM.config.contact.general) + '">' +
             esc(FM.config.contact.general) + '</a></p>' +
+          contactLineHtml(p) +
         '</div>' +
         col('footer.platform', NAV) +
         groupsCol() +
@@ -168,7 +198,7 @@
     });
   }
 
-  FM.chrome = { mount: mount, prefix: prefix, esc: esc, NAV: NAV, UTIL: UTIL };
+  FM.chrome = { mount: mount, prefix: prefix, esc: esc, NAV: NAV, NAV_BAR: NAV_BAR, NAV_MORE: NAV_MORE, UTIL: UTIL };
 
   if (doc) {
     if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', mount);
